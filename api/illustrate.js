@@ -1,12 +1,9 @@
 // Vercel serverless function: POST /api/illustrate
-// Body: { photo: dataURL, species, breed?, furColor?, eyeColor? }
+// Body: { species, breed?, furColor?, eyeColor? }
 // Returns: { url: string }
-//
-// ENV needed (set in Vercel dashboard):
-//   REPLICATE_API_TOKEN  — get from https://replicate.com/account/api-tokens
 
-// Use model endpoint (auto-uses latest version, no version hash needed)
-const MODEL = 'fofr/sticker-maker'
+// Reliable, fast text-to-image (~3 sec)
+const MODEL = 'black-forest-labs/flux-schnell'
 
 const SPECIES_LABEL = {
   cat:     'cat',
@@ -28,57 +25,69 @@ export default async function handler(req, res) {
   const animal = SPECIES_LABEL[species] || 'pet'
   const colorBits = [furColor && `${furColor} fur`, eyeColor && `${eyeColor} eyes`].filter(Boolean).join(', ')
   const breedBit = breed ? `${breed} breed, ` : ''
-  const prompt = `cute baby ${breedBit}${animal}, ${colorBits}, sticker style, kawaii, big eyes, simple illustration, white background, centered, friendly expression`
+  const prompt = `cute baby ${breedBit}${animal}, ${colorBits}, kawaii sticker style, big sparkly eyes, simple illustration, white background, centered, friendly happy expression, pastel colors, 3d render, pixar style`
 
   try {
-    // Step 1: kick off prediction (using model endpoint = latest version)
     const startRes = await fetch(`https://api.replicate.com/v1/models/${MODEL}/predictions`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
-        Prefer: 'wait=30', // sync mode — wait up to 30s for result
+        Prefer: 'wait=25',
       },
       body: JSON.stringify({
         input: {
           prompt,
-          steps: 17,
-          width: 768,
-          height: 768,
+          aspect_ratio: '1:1',
           output_format: 'webp',
           output_quality: 90,
+          num_inference_steps: 4,
         },
       }),
     })
 
-    const data = await startRes.json()
-    if (data.error) return res.status(500).json({ error: typeof data.error === 'string' ? data.error : JSON.stringify(data.error) })
+    const text = await startRes.text()
+    let data
+    try { data = JSON.parse(text) } catch { data = { _raw: text } }
 
-    // If sync mode returned succeeded, output is ready
+    if (!startRes.ok) {
+      return res.status(500).json({
+        error: 'Replicate error',
+        status: startRes.status,
+        detail: data.detail || data.error || data._raw || data,
+      })
+    }
+
     if (data.status === 'succeeded') {
       const url = Array.isArray(data.output) ? data.output[0] : data.output
       return res.status(200).json({ url })
     }
 
-    // Otherwise poll for completion
+    if (data.status === 'failed' || data.status === 'canceled') {
+      return res.status(500).json({ error: `Generation ${data.status}`, detail: data.error })
+    }
+
+    // Poll for completion if not done
     const id = data.id
+    if (!id) return res.status(500).json({ error: 'No prediction id', detail: data })
+
     let result = data
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 20; i++) {
       await new Promise(r => setTimeout(r, 1500))
       const pollRes = await fetch(`https://api.replicate.com/v1/predictions/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       result = await pollRes.json()
-      if (result.status === 'succeeded' || result.status === 'failed' || result.status === 'canceled') break
+      if (['succeeded', 'failed', 'canceled'].includes(result.status)) break
     }
 
     if (result.status !== 'succeeded') {
-      return res.status(500).json({ error: result.error || `Generation ${result.status}` })
+      return res.status(500).json({ error: `Generation ${result.status}`, detail: result.error })
     }
 
     const url = Array.isArray(result.output) ? result.output[0] : result.output
     return res.status(200).json({ url })
   } catch (err) {
-    return res.status(500).json({ error: err.message })
+    return res.status(500).json({ error: 'Server error', detail: err.message })
   }
 }
