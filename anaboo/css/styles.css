@@ -1,0 +1,270 @@
+/*
+ * styles.css
+ * Anaboo – Design system & global styles
+ */
+
+/* ── Design Tokens ─────────────────────────────── */
+:root {
+  --yellow:      #FFD600;
+  --yellow-dark: #F5C800;
+  --yellow-light:#FFF9CC;
+  --blue:        #015FEE;
+  --blue-dark:   #0148B8;
+  --pink:        #FF4896;
+  --green:       #22C55E;
+  --green-dark:  #16A34A;
+  --red:         #EF4444;
+  --white:       #FFFFFF;
+  --black:       #111111;
+  --gray:        #6B7280;
+
+  --shadow-blue:  0 4px 0 #0148B8;
+  --shadow-pink:  0 4px 0 #C4006A;
+  --shadow-green: 0 4px 0 #16A34A;
+  --shadow-card:  0 3px 0 #222;
+
+  --radius-sm:   10px;
+  --radius-md:   14px;
+  --radius-lg:   18px;
+  --radius-xl:   24px;
+  --radius-pill: 28px 28px 0 0;
+
+  --border: 3px solid var(--black);
+  --border-2: 2px solid var(--black);
+}
+
+/* ── Reset ─────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Body ──────────────────────────────────────── */
+body {
+  font-family: 'Nunito', sans-serif;
+  background: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 24px 16px 60px;
+  gap: 32px;
+}
+
+/* ── App Title ─────────────────────────────────── */
+h1.app-title {
+  font-family: 'Fredoka One', sans-serif;
+  color: var(--yellow);
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-align: center;
+  margin-top: 8px;
+}
+h1.app-title span { color: var(--pink); }
+
+/* ── Tab Bar (navigasi di luar phone) ─────────── */
+.tab-bar {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: -10px;
+}
+.tab-btn {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 24px;
+  padding: 7px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tab-btn.active,
+.tab-btn:hover {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--black);
+}
+
+/* ── Phone Shell ───────────────────────────────── */
+.phone {
+  width: 360px;
+  border-radius: 44px;
+  overflow: hidden;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,0.6),
+    0 0 0 6px #2a2a3e,
+    0 0 0 8px #111;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* ── Screen Base ───────────────────────────────── */
+.screen {
+  background: var(--yellow);
+  min-height: 760px;
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+.screen.active { display: flex; }
+
+/* ── Status Bar ────────────────────────────────── */
+.statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--black);
+  flex-shrink: 0;
+}
+.statusbar .icons { display: flex; gap: 4px; align-items: center; }
+
+/* ── Bottom Navigation ─────────────────────────── */
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 8px 20px;
+  background: var(--white);
+  border-top: var(--border);
+  flex-shrink: 0;
+}
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+.nav-item:active { transform: scale(0.9); }
+.nav-item .nav-icon  { font-size: 20px; }
+.nav-item .nav-label { font-size: 10px; font-weight: 800; color: var(--gray); }
+.nav-item.active .nav-label { color: var(--blue); }
+
+/* ── Screen Header (dengan tombol back) ────────── */
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px 10px;
+  flex-shrink: 0;
+}
+.back-btn {
+  width: 36px; height: 36px;
+  background: rgba(0,0,0,0.12);
+  border: none; border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 18px;
+}
+.screen-title {
+  font-family: 'Fredoka One', sans-serif;
+  font-size: 22px;
+  color: var(--black);
+}
+
+/* ── Buttons ───────────────────────────────────── */
+.btn-primary {
+  background: var(--blue);
+  color: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 15px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px; font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow-blue);
+  transition: all 0.12s;
+  width: 100%;
+}
+.btn-primary:active { transform: translateY(3px); box-shadow: 0 1px 0 #0148B8; }
+
+.btn-pink {
+  background: var(--pink);
+  color: var(--white);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 15px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 16px; font-weight: 900;
+  cursor: pointer;
+  box-shadow: var(--shadow-pink);
+  transition: all 0.12s;
+  width: 100%;
+}
+.btn-pink:active { transform: translateY(3px); box-shadow: 0 1px 0 #C4006A; }
+
+/* ── Form Fields ───────────────────────────────── */
+.field-group { display: flex; flex-direction: column; gap: 5px; }
+.field-label {
+  font-size: 11px; font-weight: 900;
+  color: var(--gray);
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.field-input {
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px; font-weight: 700;
+  outline: none;
+  background: var(--yellow-light);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(1,95,238,0.15);
+}
+
+/* ── Toggle Buttons ────────────────────────────── */
+.toggle-group { display: flex; gap: 8px; }
+.toggle-btn {
+  flex: 1; padding: 10px 6px;
+  border: var(--border); border-radius: var(--radius-md);
+  font-family: 'Nunito', sans-serif;
+  font-size: 12px; font-weight: 800;
+  cursor: pointer; background: var(--white);
+  transition: all 0.15s;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 3px;
+}
+.toggle-btn .tog-emoji { font-size: 20px; }
+.toggle-btn.selected {
+  background: var(--yellow);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* ── Divider ───────────────────────────────────── */
+.divider {
+  height: 2px;
+  background: #F3F4F6;
+  border-radius: 1px;
+  margin: 0 -20px;
+}
+
+/* ── Scrollbars ────────────────────────────────── */
+.timeline-scroll::-webkit-scrollbar,
+.add-scroll::-webkit-scrollbar,
+.reminder-scroll::-webkit-scrollbar,
+.detail-scroll::-webkit-scrollbar { width: 4px; }
+
+.timeline-scroll::-webkit-scrollbar-thumb,
+.add-scroll::-webkit-scrollbar-thumb,
+.reminder-scroll::-webkit-scrollbar-thumb,
+.detail-scroll::-webkit-scrollbar-thumb {
+  background: var(--yellow-dark);
+  border-radius: 2px;
+}
+
+/* ── Cat SVG ───────────────────────────────────── */
+.cat-svg { display: block; }

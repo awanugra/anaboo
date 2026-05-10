@@ -1,0 +1,387 @@
+/* ────────────────────────────
+   SCREEN 1: ONBOARDING
+──────────────────────────── */
+#onboarding {
+  background: linear-gradient(160deg, #FFF9DB 0%, #FFFBF0 55%, #FFFFFF 100%);
+  align-items: center;
+}
+
+.onboard-header { text-align: center; padding: 4px 24px 0; }
+.ob-brand { font-family: var(--font-display); font-size: 32px; color: var(--text); line-height: 1; }
+.ob-brand span { color: var(--pink); }
+.ob-tagline { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
+
+.mascot-onboard { margin: 4px auto 0; position: relative; width: 190px; height: 190px; }
+.mascot-onboard .bubble {
+  position: absolute; top: -4px; right: -28px;
+  background: var(--white);
+  border-radius: 16px 16px 16px 4px;
+  padding: 7px 12px;
+  font-size: 12px; font-weight: 700; color: var(--text);
+  white-space: nowrap;
+  box-shadow: var(--shadow-md);
+  animation: float 2.5s ease-in-out infinite;
+}
+
+.onboard-card {
+  background: var(--white);
+  border-radius: 28px 28px 0 0;
+  flex: 1; width: 100%;
+  padding: 24px 22px 18px;
+  display: flex; flex-direction: column; gap: 16px;
+  margin-top: auto;
+  overflow-y: auto;
+  box-shadow: 0 -8px 30px rgba(15,23,42,0.06);
+}
+.onboard-title { font-family: var(--font-display); font-size: 20px; color: var(--text); }
+
+/* ────────────────────────────
+   SCREEN 2: DASHBOARD
+──────────────────────────── */
+#dashboard {
+  background: linear-gradient(160deg, #FFF9DB 0%, #FFFBF0 45%, #FFFFFF 80%);
+}
+
+.dash-topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 4px 22px 0; flex-shrink: 0;
+}
+.dash-greeting { font-size: 11px; font-weight: 600; color: var(--text-muted); }
+.dash-petname  { font-family: var(--font-display); font-size: 22px; color: var(--text); }
+.dash-avatar {
+  width: 40px; height: 40px;
+  background: var(--white);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.streak-badge {
+  margin: 8px 22px 0;
+  background: var(--white);
+  border-radius: var(--r-full);
+  padding: 8px 14px;
+  display: flex; align-items: center; gap: 8px;
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+.streak-text { font-size: 12px; font-weight: 700; color: var(--text-2); }
+.streak-num  { font-family: var(--font-display); font-size: 16px; color: var(--blue); }
+
+.mascot-dashboard {
+  display: flex; flex-direction: column; align-items: center;
+  margin: 0; flex-shrink: 0;
+}
+.mascot-dashboard .speech {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 7px 14px;
+  font-size: 12px; font-weight: 700; color: var(--text);
+  margin-bottom: 2px;
+  box-shadow: var(--shadow-sm);
+  animation: float 3s ease-in-out infinite;
+}
+
+.dash-card-area {
+  flex: 1;
+  background: var(--white);
+  border-radius: 28px 28px 0 0;
+  padding: 18px 18px 0;
+  display: flex; flex-direction: column; gap: 12px;
+  overflow-y: auto;
+  box-shadow: 0 -8px 30px rgba(15,23,42,0.06);
+}
+
+.next-vaccine-card {
+  background: linear-gradient(135deg, var(--blue) 0%, #6B8FF8 100%);
+  border-radius: var(--r-xl);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 6px 24px rgba(79,121,246,0.35);
+}
+.next-vaccine-card:active { transform: scale(0.97); box-shadow: 0 2px 10px rgba(79,121,246,0.25); }
+.nvc-icon {
+  width: 46px; height: 46px;
+  background: rgba(255,255,255,0.18);
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nvc-content { flex: 1; }
+.nvc-label { font-size: 9px; font-weight: 800; color: rgba(255,255,255,0.65); text-transform: uppercase; letter-spacing: 0.8px; }
+.nvc-name  { font-family: var(--font-display); font-size: 17px; color: var(--white); margin-top: 1px; }
+.nvc-date  { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.75); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.nvc-arrow {
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,0.22);
+  border-radius: var(--r-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: white; flex-shrink: 0;
+}
+
+.timeline-preview {
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  background: var(--surface);
+}
+.tp-header   { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.tp-title    { font-weight: 800; font-size: 13px; color: var(--text); }
+.tp-see-all  { font-size: 11px; font-weight: 700; color: var(--blue); cursor: pointer; }
+
+.edu-tip-dash {
+  background: var(--yellow-muted);
+  border-radius: var(--r-lg);
+  padding: 13px 16px;
+  display: flex; gap: 12px; align-items: center;
+  cursor: pointer;
+  transition: transform 0.12s;
+  margin-bottom: 4px;
+}
+.edu-tip-dash:active { transform: scale(0.97); }
+.edu-tip-dash .etd-title   { font-weight: 800; font-size: 13px; color: var(--text); }
+.edu-tip-dash .etd-sub     { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
+
+/* ────────────────────────────
+   SCREEN 3: TIMELINE
+──────────────────────────── */
+#timeline { background: var(--bg-screen); }
+
+.timeline-scroll {
+  flex: 1; background: var(--white);
+  padding: 18px 18px 0;
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+
+.vaccine-milestone { display: flex; gap: 12px; }
+.vm-track {
+  display: flex; flex-direction: column; align-items: center;
+  width: 36px; flex-shrink: 0;
+}
+.vm-dot {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1; flex-shrink: 0;
+}
+.vm-dot.done     { background: var(--green-soft); box-shadow: 0 0 0 2px var(--green); }
+.vm-dot.upcoming { background: var(--yellow-muted); box-shadow: 0 0 0 2px var(--yellow); animation: pulse-ring 2s infinite; }
+.vm-dot.overdue  { background: var(--red-soft); box-shadow: 0 0 0 2px var(--red); animation: shake 0.5s ease-in-out infinite alternate; }
+.vm-dot.future   { background: var(--surface-2); box-shadow: 0 0 0 2px var(--border); }
+
+.vm-line { width: 2px; flex: 1; min-height: 20px; border-radius: 2px; margin: 3px 0; }
+.vm-line.done-line { background: var(--green); opacity: 0.3; }
+.vm-line.gray-line { background: var(--border); }
+
+.vm-card {
+  flex: 1; border-radius: var(--r-lg); padding: 13px 14px; margin-bottom: 14px;
+  cursor: pointer; transition: transform 0.12s, box-shadow 0.12s;
+}
+.vm-card:active { transform: scale(0.98); }
+.vm-card.done     { background: var(--white); box-shadow: var(--shadow-xs); }
+.vm-card.upcoming { background: var(--yellow-muted); box-shadow: var(--shadow-sm); }
+.vm-card.overdue  { background: var(--red-soft); box-shadow: var(--shadow-sm); }
+.vm-card.future   { background: var(--surface); }
+
+.vm-card-header  { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.vm-vaccine-name { font-weight: 800; font-size: 13px; color: var(--text); }
+.vm-status-pill  {
+  font-size: 9px; font-weight: 800; padding: 3px 9px;
+  border-radius: var(--r-full); flex-shrink: 0;
+}
+.vm-status-pill.done     { background: var(--green-soft); color: var(--green-dark); }
+.vm-status-pill.upcoming { background: var(--yellow); color: var(--text); }
+.vm-status-pill.overdue  { background: var(--red-soft); color: var(--red); }
+.vm-status-pill.future   { background: var(--surface-2); color: var(--text-muted); }
+
+.vm-date  { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
+.vm-note  { font-size: 11px; font-weight: 500; color: var(--text-muted); margin-top: 4px; font-style: italic; }
+.vm-check { font-size: 11px; font-weight: 600; color: var(--green-dark); margin-top: 4px; }
+
+/* ────────────────────────────
+   SCREEN 4: ADD VACCINE
+──────────────────────────── */
+#addvaccine { background: var(--bg-screen); }
+
+.add-scroll {
+  flex: 1; background: var(--white);
+  padding: 16px 18px 20px;
+  display: flex; flex-direction: column; gap: 16px;
+  overflow-y: auto;
+}
+
+.mascot-add {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--yellow-muted);
+  border-radius: var(--r-lg);
+  padding: 12px 16px;
+}
+.mascot-add .ma-text { font-size: 12px; font-weight: 600; color: var(--text); line-height: 1.45; }
+
+.vaccine-picker { display: flex; flex-direction: column; gap: 8px; }
+.vp-item {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-lg); padding: 13px 14px;
+  cursor: pointer; background: var(--white);
+  transition: all 0.18s; overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+.vp-item.selected {
+  background: var(--blue-soft);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(79,121,246,0.12);
+}
+.vp-header  { display: flex; align-items: center; gap: 12px; }
+.vp-meta    { flex: 1; }
+.vp-name    { font-size: 14px; font-weight: 800; color: var(--text); }
+.vp-sub     { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 2px; }
+.vp-price-badge {
+  font-size: 10px; font-weight: 700;
+  background: var(--green-soft);
+  color: var(--green-dark);
+  border-radius: var(--r-full);
+  padding: 3px 10px; flex-shrink: 0;
+}
+.vp-item.selected .vp-price-badge { background: var(--blue); color: white; }
+
+.vp-edu-expand { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.vp-item.selected .vp-edu-expand { max-height: 300px; }
+.vp-edu-inner {
+  margin-top: 12px; padding-top: 12px;
+  border-top: 1px dashed rgba(79,121,246,0.25);
+}
+.vp-edu-inner .vp-edu-desc { font-size: 12px; font-weight: 600; color: var(--text-2); line-height: 1.5; }
+.vp-edu-inner .vp-edu-age {
+  margin-top: 8px; display: flex; align-items: center; gap: 8px;
+  background: var(--white);
+  border-radius: var(--r-sm); padding: 7px 10px;
+  box-shadow: var(--shadow-xs);
+}
+.vp-edu-age .age-text { font-size: 11px; font-weight: 600; color: var(--text-2); }
+
+/* ────────────────────────────
+   SCREEN 5: REMINDERS
+──────────────────────────── */
+#reminders { background: var(--bg-screen); }
+
+.reminder-mascot {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 4px 0 8px; flex-shrink: 0;
+  background: linear-gradient(160deg, #FFF1F3 0%, #FFFFFF 70%);
+}
+.alert-bubble {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 7px 14px;
+  font-size: 12px; font-weight: 700; color: var(--red);
+  margin-bottom: 4px;
+  box-shadow: var(--shadow-sm);
+  animation: float 2s ease-in-out infinite;
+}
+
+.reminder-scroll {
+  flex: 1; background: var(--white);
+  padding: 18px 18px 0;
+  display: flex; flex-direction: column; gap: 10px;
+  overflow-y: auto;
+}
+
+.reminder-card {
+  border-radius: var(--r-xl); padding: 14px 16px;
+  display: flex; align-items: flex-start; gap: 12px;
+  transition: transform 0.12s; cursor: pointer;
+}
+.reminder-card:active { transform: scale(0.97); }
+.reminder-card.urgent    { background: var(--red-soft); }
+.reminder-card.soon      { background: var(--yellow-muted); }
+.reminder-card.scheduled { background: var(--blue-soft); }
+
+.rc-icon {
+  width: 44px; height: 44px; border-radius: var(--r-lg);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.rc-icon.urgent-icon { background: rgba(244,63,94,0.12); }
+.rc-icon.soon-icon   { background: rgba(255,214,10,0.25); }
+.rc-icon.sched-icon  { background: rgba(79,121,246,0.12); }
+
+.rc-content { flex: 1; }
+.rc-name { font-weight: 800; font-size: 13px; color: var(--text); }
+.rc-time { font-size: 11px; font-weight: 600; color: var(--text-muted); margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.rc-why  {
+  font-size: 11px; font-weight: 600; color: var(--blue-dark); margin-top: 6px;
+  line-height: 1.45;
+}
+.rc-badge {
+  font-size: 9px; font-weight: 800; padding: 3px 10px;
+  border-radius: var(--r-full); flex-shrink: 0; margin-top: 2px;
+  align-self: flex-start;
+}
+.rc-badge.urgent-badge { background: var(--red-soft); color: var(--red); }
+.rc-badge.soon-badge   { background: var(--yellow); color: var(--text); }
+.rc-badge.sched-badge  { background: var(--blue); color: white; }
+
+.reminder-btn {
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: var(--r-xl); padding: 14px;
+  font-family: var(--font-body); font-size: 14px; font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(79,121,246,0.35);
+  transition: all 0.15s; text-align: center;
+  margin-bottom: 4px;
+}
+.reminder-btn:active { transform: translateY(1px); box-shadow: 0 2px 8px rgba(79,121,246,0.25); }
+
+/* ────────────────────────────
+   SCREEN 6: VACCINE DETAIL
+──────────────────────────── */
+#vaccinedetail { background: var(--bg-screen); }
+
+.detail-hero {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 10px 20px 16px;
+  background: linear-gradient(160deg, var(--green-soft) 0%, #FFFFFF 70%);
+  flex-shrink: 0;
+}
+.detail-badge {
+  background: var(--white);
+  border-radius: var(--r-full);
+  padding: 8px 20px;
+  font-family: var(--font-display); font-size: 17px; color: var(--text);
+  box-shadow: var(--shadow-sm); margin-top: 6px;
+}
+
+.detail-scroll {
+  flex: 1; background: var(--white);
+  padding: 20px 18px 18px;
+  display: flex; flex-direction: column; gap: 16px;
+  overflow-y: auto;
+}
+
+.detail-section       { display: flex; flex-direction: column; gap: 10px; }
+.detail-section-title { font-family: var(--font-display); font-size: 16px; color: var(--text); }
+.detail-desc          { font-size: 13px; font-weight: 600; color: var(--text-2); line-height: 1.55; }
+
+.info-row { display: flex; gap: 10px; }
+.info-box {
+  flex: 1; border-radius: var(--r-lg);
+  padding: 14px 12px; text-align: center;
+  box-shadow: var(--shadow-xs);
+}
+.info-box.blue-box   { background: var(--blue-soft); }
+.info-box.green-box  { background: var(--green-soft); }
+.info-box.yellow-box { background: var(--yellow-muted); }
+.ib-val   { font-family: var(--font-display); font-size: 13px; margin-top: 5px; }
+.ib-label { font-size: 10px; font-weight: 700; color: var(--text-muted); margin-top: 2px; }
+
+.symptom-list { display: flex; flex-direction: column; gap: 6px; }
+.symptom-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  background: var(--surface);
+  border-radius: var(--r-md); padding: 10px 12px;
+}
+.symptom-item .si-text { font-size: 12px; font-weight: 600; color: var(--text-2); line-height: 1.45; }

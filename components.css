@@ -1,0 +1,156 @@
+/* =============================================
+   ANABOO – Shared Component Styles
+   ============================================= */
+
+/* ── Mascot Speech Bubble ── */
+.speech-bubble {
+  background: var(--white);
+  border: 3px solid var(--black);
+  border-radius: 18px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 2px 2px 0 var(--black);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ── Mini Timeline (dashboard preview) ── */
+.mini-timeline { display: flex; align-items: center; }
+.mini-dot {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 3px solid var(--black);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.mini-dot.done     { background: var(--green); }
+.mini-dot.upcoming { background: var(--yellow); }
+.mini-dot.overdue  { background: var(--red); }
+.mini-dot.future   { background: #E5E7EB; }
+.mini-line { flex: 1; height: 4px; background: #D1D5DB; border-radius: 2px; }
+.mini-line.done-line { background: var(--green); }
+
+.label-row { display: flex; justify-content: space-between; margin-top: 8px; }
+.label-text { font-size: 10px; font-weight: 800; color: var(--gray); }
+.label-dot {
+  display: inline-block;
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  border: 2px solid var(--black);
+  margin-right: 3px;
+}
+.label-dot.green  { background: var(--green); }
+.label-dot.yellow { background: var(--yellow); }
+.label-dot.red    { background: var(--red); }
+.label-dot.gray   { background: #D1D5DB; }
+
+/* ── Stat Cards ── */
+.stats-row { display: flex; gap: 10px; }
+.stat-card {
+  flex: 1;
+  border: 3px solid var(--black);
+  border-radius: 16px;
+  padding: 12px 10px;
+  text-align: center;
+  box-shadow: 0 3px 0 #222;
+}
+.stat-card.green-card  { background: #DCFCE7; }
+.stat-card.yellow-card { background: var(--yellow-light); }
+.stat-num   { font-family: var(--font-display); font-size: 24px; }
+.stat-label { font-size: 10px; font-weight: 800; color: var(--gray); margin-top: 1px; }
+
+/* ── Edu Box (expandable info) ── */
+.vm-edu-trigger {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 8px; padding: 7px 10px;
+  background: rgba(1,95,238,0.08);
+  border: 2px solid rgba(1,95,238,0.25);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.vm-edu-trigger:hover { background: rgba(1,95,238,0.14); }
+.vm-edu-trigger .edu-icon   { font-size: 14px; }
+.vm-edu-trigger .edu-label  { font-size: 11px; font-weight: 800; color: var(--blue); flex: 1; }
+.vm-edu-trigger .edu-chevron { font-size: 11px; color: var(--blue); transition: transform 0.2s; }
+.vm-edu-trigger.open .edu-chevron { transform: rotate(180deg); }
+
+.vm-edu-box {
+  display: none;
+  margin-top: 6px;
+  background: #EFF6FF;
+  border: 2px solid rgba(1,95,238,0.3);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.vm-edu-box.open { display: block; animation: fadeIn 0.2s ease; }
+.vm-edu-box .edu-what      { font-size: 11px; font-weight: 900; color: var(--blue); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+.vm-edu-box .edu-desc      { font-size: 11px; font-weight: 700; color: #1e40af; line-height: 1.5; }
+.vm-edu-box .edu-symptoms  { margin-top: 6px; }
+.vm-edu-box .edu-symp-title { font-size: 10px; font-weight: 900; color: #DC2626; text-transform: uppercase; letter-spacing: 0.4px; }
+.vm-edu-box .edu-symp-list  { font-size: 11px; font-weight: 700; color: #7f1d1d; margin-top: 2px; line-height: 1.5; }
+
+.vm-edu-box .edu-price {
+  margin-top: 8px;
+  background: var(--yellow-light);
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.vm-edu-box .edu-price .ep-label { font-size: 10px; font-weight: 900; color: var(--gray); }
+.vm-edu-box .edu-price .ep-val   { font-family: var(--font-display); font-size: 14px; color: var(--black); }
+
+.vm-edu-box .edu-zoonosis {
+  margin-top: 6px;
+  background: #FFF7ED;
+  border: 2px solid #F97316;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+.vm-edu-box .edu-zoonosis .ez-label { font-size: 10px; font-weight: 900; color: #9A3412; }
+.vm-edu-box .edu-zoonosis .ez-text  { font-size: 11px; font-weight: 700; color: #7C2D12; margin-top: 1px; line-height: 1.4; }
+
+/* ── Did You Know block ── */
+.did-you-know {
+  background: var(--yellow-light);
+  border: 3px solid var(--black);
+  border-radius: 18px;
+  padding: 14px;
+}
+.dyk-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.dyk-icon   { font-size: 20px; }
+.dyk-title  { font-family: var(--font-display); font-size: 15px; color: var(--black); }
+.dyk-facts  { display: flex; flex-direction: column; gap: 6px; }
+.dyk-fact {
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-size: 11px; font-weight: 700; color: var(--black); line-height: 1.45;
+}
+.dyk-fact strong { color: var(--blue); }
+
+/* ── Onboarding Info Tip ── */
+.ob-info-tip {
+  background: #EFF6FF;
+  border: 2px solid var(--blue);
+  border-radius: 14px;
+  padding: 10px 12px;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.ob-info-tip .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.ob-info-tip .tip-text { font-size: 12px; font-weight: 700; color: #1e40af; line-height: 1.4; }
+
+/* ── Zoonosis Warning Block ── */
+.zoonosis-warning {
+  background: #FFF7ED;
+  border: 3px solid #F97316;
+  border-radius: 16px;
+  padding: 14px;
+}
+.zw-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.zw-icon   { font-size: 22px; }
+.zw-title  { font-family: var(--font-display); font-size: 15px; color: #9A3412; }
+.zw-text   { font-size: 12px; font-weight: 700; color: #7C2D12; line-height: 1.5; }

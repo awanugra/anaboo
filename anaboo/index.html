@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Anaboo – Teman Vaksin Kucingmu 🐾</title>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+
+<h1 class="app-title">🐾 Ana<span>boo</span></h1>
+
+<!-- ── Screen Navigation Tabs ── -->
+<div class="tab-bar">
+  <button class="tab-btn active"  onclick="showScreen('onboarding',    this)">👋 Onboarding</button>
+  <button class="tab-btn"         onclick="showScreen('dashboard',     this)">🏠 Dashboard</button>
+  <button class="tab-btn"         onclick="showScreen('timeline',      this)">📅 Timeline</button>
+  <button class="tab-btn"         onclick="showScreen('addvaccine',    this)">➕ Tambah</button>
+  <button class="tab-btn"         onclick="showScreen('reminders',     this)">🔔 Pengingat</button>
+  <button class="tab-btn"         onclick="showScreen('vaccinedetail', this)">📖 Edukasi</button>
+</div>
+
+<!-- ── Phone Frame ── -->
+<div class="phone">
+
+  <!-- ════════════════════════════════════
+       SCREEN 1: ONBOARDING
+  ════════════════════════════════════ -->
+  <div class="screen active" id="onboarding">
+    <div class="statusbar">
+      <span>10:25</span>
+      <div class="icons">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#111" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="#111"><rect x="2" y="7" width="16" height="10" rx="2"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg>
+      </div>
+    </div>
+
+    <div class="onboard-header">
+      <div class="ob-brand">Ana<span>boo</span> 🐱</div>
+      <div class="ob-tagline">Teman vaksin kucingmu di Indonesia!</div>
+    </div>
+
+    <div class="mascot-onboard" style="margin:0 auto;">
+      <div class="bubble">Halo! Aku Anaboo! 😸</div>
+      <!-- mascotFull() from js/mascot.js -->
+      <svg width="180" height="180" viewBox="0 0 180 180" fill="none"
+           style="animation:wiggle 3s ease-in-out infinite;display:block;margin:auto;">
+        <ellipse cx="90" cy="130" rx="50" ry="40" fill="white" stroke="#111" stroke-width="3.5"/>
+        <circle cx="90" cy="80" r="42" fill="white" stroke="#111" stroke-width="3.5"/>
+        <polygon points="58,48 46,18 74,42" fill="#FF4896" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>
+        <polygon points="122,48 134,18 106,42" fill="#FF4896" stroke="#111" stroke-width="3.5" stroke-linejoin="round"/>
+        <polygon points="61,46 50,24 72,44" fill="#FFB3D1"/>
+        <polygon points="119,46 130,24 108,44" fill="#FFB3D1"/>
+        <circle cx="76" cy="76" r="10" fill="white" stroke="#111" stroke-width="3"/>
+        <circle cx="104" cy="76" r="10" fill="white" stroke="#111" stroke-width="3"/>
+        <circle cx="78" cy="76" r="5.5" fill="#111"/>
+        <circle cx="106" cy="76" r="5.5" fill="#111"/>
+        <circle cx="79.5" cy="74" r="2" fill="white"/>
+        <circle cx="107.5" cy="74" r="2" fill="white"/>
+        <path d="M90 90 L86 87 L94 87 Z" fill="#FF4896"/>
+        <path d="M86 93 Q90 97 94 93" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <line x1="60" y1="88" x2="82" y2="90" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <line x1="58" y1="94" x2="82" y2="93" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <line x1="98" y1="90" x2="120" y2="88" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <line x1="98" y1="93" x2="122" y2="94" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="60" cy="158" rx="18" ry="12" fill="white" stroke="#111" stroke-width="3"/>
+        <ellipse cx="120" cy="158" rx="18" ry="12" fill="white" stroke="#111" stroke-width="3"/>
+        <path d="M135 140 Q160 120 155 100 Q150 85 140 90" stroke="#111" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="90" cy="132" rx="22" ry="16" fill="#FFF3B0"/>
+        <ellipse cx="66" cy="84" rx="7" ry="4" fill="#FF4896" opacity="0.3"/>
+        <ellipse cx="114" cy="84" rx="7" ry="4" fill="#FF4896" opacity="0.3"/>
+      </svg>
+    </div>
+
+    <div class="onboard-card">
+      <div class="onboard-title">Ceritain soal kucingmu! 🐾</div>
+      <div class="field-group">
+        <div class="field-label">Nama Kucing</div>
+        <input class="field-input" type="text" placeholder="mis. Luna, Mochi, Cleo..." value="Luna">
+      </div>
+      <div class="field-group">
+        <div class="field-label">Tanggal Lahir</div>
+        <input class="field-input" type="date" value="2023-06-15">
+      </div>
+      <div class="field-group">
+        <div class="field-label">Gaya Hidup</div>
+        <div class="toggle-group">
+          <button class="toggle-btn selected" onclick="selectToggle(this)"><span class="tog-emoji">🏠</span>Indoor</button>
+          <button class="toggle-btn" onclick="selectToggle(this)"><span class="tog-emoji">🌿</span>Outdoor</button>
+          <button class="toggle-btn" onclick="selectToggle(this)"><span class="tog-emoji">🔄</span>Keduanya</button>
+        </div>
+      </div>
+      <div class="ob-info-tip">
+        <span class="tip-icon">💡</span>
+        <div class="tip-text">Kucing indoor <strong>tetap perlu divaksin</strong>! Vaksin inti seperti Tricat &amp; Rabies wajib untuk semua kucing.</div>
+      </div>
+      <button class="btn-primary" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])">
+        Yuk mulai, Luna! 🚀
+      </button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       SCREEN 2: DASHBOARD
+  ════════════════════════════════════ -->
+  <div class="screen" id="dashboard">
+    <div class="statusbar"><span>10:25</span><div class="icons"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#111" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><svg viewBox="0 0 24 24" width="14" height="14" fill="#111"><rect x="2" y="7" width="16" height="10" rx="2"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg></div></div>
+    <div class="dash-topbar">
+      <div>
+        <div class="dash-greeting">Selamat pagi! 🌞</div>
+        <div class="dash-petname">Kesehatan Luna</div>
+      </div>
+      <div class="dash-avatar">🐱</div>
+    </div>
+    <div class="streak-badge">
+      <span class="streak-icon">🔥</span>
+      <span class="streak-text">Vaksin selesai: <span class="streak-num">3</span> dari 5!</span>
+    </div>
+    <div class="mascot-dashboard">
+      <div class="speech">Luna sehat &amp; bahagia! 💛</div>
+      <!-- mascotHappy() from js/mascot.js -->
+      <svg width="130" height="120" viewBox="0 0 140 130" fill="none">
+        <ellipse cx="70" cy="100" rx="40" ry="28" fill="white" stroke="#111" stroke-width="3"/>
+        <circle cx="70" cy="60" r="34" fill="white" stroke="#111" stroke-width="3"/>
+        <polygon points="44,36 33,10 58,32" fill="#FF4896" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="96,36 107,10 82,32" fill="#FF4896" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="47,34 37,14 57,30" fill="#FFB3D1"/>
+        <polygon points="93,34 103,14 83,30" fill="#FFB3D1"/>
+        <path d="M56 56 Q60 50 64 56" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M76 56 Q80 50 84 56" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M70 68 L67 65 L73 65 Z" fill="#FF4896"/>
+        <path d="M67 71 Q70 75 73 71" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <line x1="42" y1="65" x2="63" y2="67" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <line x1="40" y1="70" x2="63" y2="70" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <line x1="77" y1="67" x2="98" y2="65" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <line x1="77" y1="70" x2="100" y2="70" stroke="#111" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="44" cy="62" rx="6" ry="3.5" fill="#FF4896" opacity="0.3"/>
+        <ellipse cx="96" cy="62" rx="6" ry="3.5" fill="#FF4896" opacity="0.3"/>
+        <ellipse cx="45" cy="118" rx="14" ry="8" fill="white" stroke="#111" stroke-width="2.5"/>
+        <ellipse cx="95" cy="118" rx="14" ry="8" fill="white" stroke="#111" stroke-width="2.5"/>
+        <path d="M108 108 Q126 90 120 75" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="70" cy="103" rx="16" ry="12" fill="#FFF3B0"/>
+      </svg>
+    </div>
+    <div class="dash-card-area">
+      <div class="next-vaccine-card" onclick="showScreen('timeline', document.querySelectorAll('.tab-btn')[2])">
+        <div class="nvc-icon">💉</div>
+        <div class="nvc-content">
+          <div class="nvc-label">Vaksin Berikutnya</div>
+          <div class="nvc-name">Rabies Booster</div>
+          <div class="nvc-date">📅 15 Mei 2025 · 14 hari lagi</div>
+        </div>
+        <div class="nvc-arrow">→</div>
+      </div>
+      <div class="stats-row">
+        <div class="stat-card green-card"><div class="stat-num" style="color:var(--green)">3</div><div class="stat-label">✅ Selesai</div></div>
+        <div class="stat-card yellow-card"><div class="stat-num" style="color:#D97706">2</div><div class="stat-label">⏰ Mendatang</div></div>
+        <div class="stat-card" style="background:#FEF2F2;"><div class="stat-num" style="color:var(--red)">0</div><div class="stat-label">🚨 Terlambat</div></div>
+      </div>
+      <div class="timeline-preview">
+        <div class="tp-header">
+          <div class="tp-title">Perjalanan Vaksin 🗺️</div>
+          <div class="tp-see-all" onclick="showScreen('timeline', document.querySelectorAll('.tab-btn')[2])">Lihat semua →</div>
+        </div>
+        <div class="mini-timeline">
+          <div class="mini-dot done">✓</div><div class="mini-line done-line"></div>
+          <div class="mini-dot done">✓</div><div class="mini-line done-line"></div>
+          <div class="mini-dot done">✓</div><div class="mini-line"></div>
+          <div class="mini-dot upcoming">!</div><div class="mini-line"></div>
+          <div class="mini-dot future">·</div>
+        </div>
+        <div class="label-row">
+          <span class="label-text"><span class="label-dot green"></span>Selesai</span>
+          <span class="label-text"><span class="label-dot yellow"></span>Segera</span>
+          <span class="label-text"><span class="label-dot red"></span>Terlambat</span>
+          <span class="label-text"><span class="label-dot gray"></span>Planned</span>
+        </div>
+      </div>
+      <div class="edu-tip-dash" onclick="showScreen('vaccinedetail', document.querySelectorAll('.tab-btn')[5])">
+        <div class="etd-icon">📖</div>
+        <div>
+          <div class="etd-title">Kenapa vaksin itu penting?</div>
+          <div class="etd-sub">Pelajari fungsi tiap vaksin untuk Luna →</div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item active"><div class="nav-icon">🏠</div><div class="nav-label" style="color:var(--blue)">Home</div></div>
+      <div class="nav-item" onclick="showScreen('timeline', document.querySelectorAll('.tab-btn')[2])"><div class="nav-icon">📅</div><div class="nav-label">Timeline</div></div>
+      <div class="nav-item" onclick="showScreen('addvaccine', document.querySelectorAll('.tab-btn')[3])"><div class="nav-icon">➕</div><div class="nav-label">Tambah</div></div>
+      <div class="nav-item" onclick="showScreen('reminders', document.querySelectorAll('.tab-btn')[4])"><div class="nav-icon">🔔</div><div class="nav-label">Pengingat</div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       SCREEN 3: TIMELINE
+  ════════════════════════════════════ -->
+  <div class="screen" id="timeline">
+    <div class="statusbar"><span>10:25</span><div class="icons"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#111" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><svg viewBox="0 0 24 24" width="14" height="14" fill="#111"><rect x="2" y="7" width="16" height="10" rx="2"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg></div></div>
+    <div class="screen-header">
+      <button class="back-btn" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])">←</button>
+      <div class="screen-title">Perjalanan Luna 🗺️</div>
+    </div>
+    <div class="timeline-scroll">
+
+      <!-- Vaccine 1: Tricat DONE -->
+      <div class="vaccine-milestone">
+        <div class="vm-track"><div class="vm-dot done">✓</div><div class="vm-line done-line"></div></div>
+        <div class="vm-card done">
+          <div class="vm-card-header"><div class="vm-vaccine-name">🐾 Tricat / F3 – Tahap 1</div><span class="vm-status-pill done">Selesai ✓</span></div>
+          <div class="vm-date">📅 15 Des 2023 · Usia: 8 minggu</div>
+          <div class="vm-check">🏥 Klinik Dr. Pawsome · Batch #FV2312</div>
+          <div class="vm-note">"Luna berani banget, hampir nggak nangis! 💪"</div>
+          <div class="vm-edu-trigger" onclick="toggleEdu(this)">
+            <span class="edu-icon">💡</span><span class="edu-label">Kenapa vaksin ini penting?</span><span class="edu-chevron">▼</span>
+          </div>
+          <div class="vm-edu-box">
+            <div class="edu-what">Tricat melindungi dari 3 virus:</div>
+            <div class="edu-desc">🦠 <strong>Panleukopenia</strong> – paling mematikan pada anak kucing, menyerang usus &amp; sumsum tulang.<br>🤧 <strong>Rhinotracheitis</strong> – infeksi saluran napas berat, bisa kambuh seumur hidup.<br>😷 <strong>Calicivirus</strong> – menyebabkan sariawan, demam, dan kesulitan makan.</div>
+            <div class="edu-symptoms"><div class="edu-symp-title">⚠️ Jika tidak divaksin:</div><div class="edu-symp-list">Muntah, diare berdarah, lemas ekstrem, hingga kematian — terutama anak kucing di bawah 12 minggu.</div></div>
+            <div class="edu-price"><span class="ep-label">💰 Estimasi biaya</span><span class="ep-val">Rp80.000 – Rp250.000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vaccine 2: Tetracat DONE -->
+      <div class="vaccine-milestone">
+        <div class="vm-track"><div class="vm-dot done">✓</div><div class="vm-line done-line"></div></div>
+        <div class="vm-card done">
+          <div class="vm-card-header"><div class="vm-vaccine-name">💊 Tetracat / F4 – Tahap 2</div><span class="vm-status-pill done">Selesai ✓</span></div>
+          <div class="vm-date">📅 26 Jan 2024 · Usia: 12 minggu</div>
+          <div class="vm-check">🏥 Klinik Dr. Pawsome</div>
+          <div class="vm-edu-trigger" onclick="toggleEdu(this)">
+            <span class="edu-icon">💡</span><span class="edu-label">Kenapa vaksin ini penting?</span><span class="edu-chevron">▼</span>
+          </div>
+          <div class="vm-edu-box">
+            <div class="edu-what">Tetracat = Tricat + 1 perlindungan ekstra:</div>
+            <div class="edu-desc">✅ Semua perlindungan Tricat PLUS:<br>👁️ <strong>Chlamydia</strong> – menyebabkan mata bengkak parah, demam, dan radang paru-paru.</div>
+            <div class="edu-symptoms"><div class="edu-symp-title">⚠️ Gejala Chlamydia:</div><div class="edu-symp-list">Mata merah &amp; bengkak, kelopak mata menutup sendiri, cairan berlebih dari mata, demam tinggi.</div></div>
+            <div class="edu-price"><span class="ep-label">💰 Estimasi biaya</span><span class="ep-val">Rp170.000 – Rp210.000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vaccine 3: Rabies DONE -->
+      <div class="vaccine-milestone">
+        <div class="vm-track"><div class="vm-dot done">✓</div><div class="vm-line gray-line"></div></div>
+        <div class="vm-card done">
+          <div class="vm-card-header"><div class="vm-vaccine-name">🦠 Vaksin Rabies – Pertama</div><span class="vm-status-pill done">Selesai ✓</span></div>
+          <div class="vm-date">📅 10 Mar 2024 · Usia: 20 minggu</div>
+          <div class="vm-check">🏥 Happy Paws Vet · Batch #RB2403</div>
+          <div class="vm-edu-trigger" onclick="toggleEdu(this)">
+            <span class="edu-icon">💡</span><span class="edu-label">Kenapa vaksin ini penting?</span><span class="edu-chevron">▼</span>
+          </div>
+          <div class="vm-edu-box">
+            <div class="edu-what">Rabies – Bisa Menular ke Manusia!</div>
+            <div class="edu-desc">Virus rabies menyerang sistem saraf dan hampir selalu fatal. Tidak ada obatnya — satu-satunya perlindungan adalah vaksin.</div>
+            <div class="edu-symptoms"><div class="edu-symp-title">⚠️ Gejala pada kucing:</div><div class="edu-symp-list">Agresif tiba-tiba, air liur berlebihan, takut air (hidrofobia), kejang, dan kelumpuhan.</div></div>
+            <div class="edu-zoonosis"><div class="ez-label">🚨 ZOONOSIS – Menular ke Manusia!</div><div class="ez-text">Rabies bisa menular ke manusia melalui gigitan atau cakaran. Di Indonesia, rabies termasuk penyakit zoonosis yang serius.</div></div>
+            <div class="edu-price"><span class="ep-label">💰 Estimasi biaya</span><span class="ep-val">~Rp100.000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vaccine 4: Rabies Booster UPCOMING -->
+      <div class="vaccine-milestone">
+        <div class="vm-track"><div class="vm-dot upcoming">!</div><div class="vm-line gray-line"></div></div>
+        <div class="vm-card upcoming">
+          <div class="vm-card-header"><div class="vm-vaccine-name">💉 Rabies Booster Tahunan</div><span class="vm-status-pill upcoming">Segera ⏰</span></div>
+          <div class="vm-date">📅 15 Mei 2025 · 14 hari lagi</div>
+          <div class="vm-note">"Jangan lupa ya, Luna sudah nunggu! 🐾"</div>
+          <div class="vm-edu-trigger" onclick="toggleEdu(this)">
+            <span class="edu-icon">💡</span><span class="edu-label">Kenapa booster itu penting?</span><span class="edu-chevron">▼</span>
+          </div>
+          <div class="vm-edu-box">
+            <div class="edu-what">Booster = Mengisi ulang kekebalan</div>
+            <div class="edu-desc">Imunitas melemah seiring waktu. Booster tahunan memastikan Luna selalu terlindungi. Untuk kucing outdoor/keduanya, booster <strong>wajib setiap tahun</strong>.</div>
+            <div class="edu-price"><span class="ep-label">💰 Estimasi biaya</span><span class="ep-val">~Rp100.000/tahun</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vaccine 5: FeLV FUTURE -->
+      <div class="vaccine-milestone">
+        <div class="vm-track"><div class="vm-dot future">·</div><div class="vm-line gray-line"></div></div>
+        <div class="vm-card future">
+          <div class="vm-card-header"><div class="vm-vaccine-name">🌡️ FeLV (Leukemia Kucing)</div><span class="vm-status-pill future">Direncanakan</span></div>
+          <div class="vm-date">📅 15 Jun 2025 · 45 hari lagi</div>
+          <div class="vm-edu-trigger" onclick="toggleEdu(this)">
+            <span class="edu-icon">💡</span><span class="edu-label">Apa itu FeLV?</span><span class="edu-chevron">▼</span>
+          </div>
+          <div class="vm-edu-box">
+            <div class="edu-what">Feline Leukemia Virus</div>
+            <div class="edu-desc">Menyebar lewat cairan tubuh (air liur, urin, tinja) — bisa tertular saat grooming bersama atau berbagi tempat makan.</div>
+            <div class="edu-symptoms"><div class="edu-symp-title">⚠️ Bisa menyebabkan:</div><div class="edu-symp-list">Anemia, limfoma (kanker), dan penurunan sistem imun secara permanen.</div></div>
+            <div class="edu-price"><span class="ep-label">💰 Estimasi biaya</span><span class="ep-val">Rp100.000 – Rp200.000</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vaccine 6: FVRCP Annual FUTURE -->
+      <div class="vaccine-milestone">
+        <div class="vm-track"><div class="vm-dot future">·</div></div>
+        <div class="vm-card future" style="margin-bottom:24px;">
+          <div class="vm-card-header"><div class="vm-vaccine-name">🔬 Tricat/FVRCP Tahunan</div><span class="vm-status-pill future">Direncanakan</span></div>
+          <div class="vm-date">📅 Sep 2025</div>
+          <div class="vm-note">Untuk kucing outdoor/keduanya, diulang tiap tahun. Indoor: tiap 3 tahun.</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])"><div class="nav-icon">🏠</div><div class="nav-label">Home</div></div>
+      <div class="nav-item active"><div class="nav-icon">📅</div><div class="nav-label" style="color:var(--blue)">Timeline</div></div>
+      <div class="nav-item" onclick="showScreen('addvaccine', document.querySelectorAll('.tab-btn')[3])"><div class="nav-icon">➕</div><div class="nav-label">Tambah</div></div>
+      <div class="nav-item" onclick="showScreen('reminders', document.querySelectorAll('.tab-btn')[4])"><div class="nav-icon">🔔</div><div class="nav-label">Pengingat</div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       SCREEN 4: ADD VACCINE
+  ════════════════════════════════════ -->
+  <div class="screen" id="addvaccine">
+    <div class="statusbar"><span>10:25</span><div class="icons"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#111" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><svg viewBox="0 0 24 24" width="14" height="14" fill="#111"><rect x="2" y="7" width="16" height="10" rx="2"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg></div></div>
+    <div class="screen-header">
+      <button class="back-btn" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])">←</button>
+      <div class="screen-title">Catat Vaksin 💉</div>
+    </div>
+    <div class="add-scroll">
+      <div class="mascot-add">
+        <span class="ma-emoji">😸</span>
+        <div class="ma-text">Hore! Catat vaksin berarti Luna makin terlindungi. Kamu keren! 🎉</div>
+      </div>
+      <div class="section-label">Pilih Jenis Vaksin</div>
+      <div class="vaccine-picker">
+        <div class="vp-item selected" onclick="selectVaccine(this)">
+          <div class="vp-header"><span class="vp-icon">🐾</span><div class="vp-meta"><div class="vp-name">Tricat / F3</div><div class="vp-sub">Usia 8–10 minggu · Vaksin Inti</div></div><span class="vp-price-badge">Rp80–250rb</span></div>
+          <div class="vp-edu-expand"><div class="vp-edu-inner"><div class="vp-edu-desc">Melindungi dari <strong>Panleukopenia</strong>, <strong>Rhinotracheitis</strong>, dan <strong>Calicivirus</strong>.</div><div class="vp-edu-age"><span class="age-icon">📅</span><span class="age-text">Diberikan usia 8–10 minggu, diulang tiap 3–4 minggu hingga usia 16 minggu</span></div></div></div>
+        </div>
+        <div class="vp-item" onclick="selectVaccine(this)">
+          <div class="vp-header"><span class="vp-icon">💊</span><div class="vp-meta"><div class="vp-name">Tetracat / F4</div><div class="vp-sub">Usia 12–14 minggu · Vaksin Inti</div></div><span class="vp-price-badge">Rp170–210rb</span></div>
+          <div class="vp-edu-expand"><div class="vp-edu-inner"><div class="vp-edu-desc">Tricat + perlindungan ekstra dari <strong>Chlamydia</strong> yang menyebabkan infeksi mata parah.</div><div class="vp-edu-age"><span class="age-icon">📅</span><span class="age-text">Diberikan usia 12–14 minggu setelah Tricat pertama</span></div></div></div>
+        </div>
+        <div class="vp-item" onclick="selectVaccine(this)">
+          <div class="vp-header"><span class="vp-icon">🦠</span><div class="vp-meta"><div class="vp-name">Vaksin Rabies</div><div class="vp-sub">Usia 20 minggu · Wajib · Zoonosis</div></div><span class="vp-price-badge" style="background:var(--red);">~Rp100rb</span></div>
+          <div class="vp-edu-expand"><div class="vp-edu-inner"><div class="vp-edu-desc">Wajib untuk semua kucing! Melindungi dari rabies yang <strong>bisa menular ke manusia</strong>. Tidak ada obatnya — hanya bisa dicegah.</div><div class="vp-edu-age"><span class="age-icon">📅</span><span class="age-text">Usia 20 minggu, diulang setiap tahun</span></div></div></div>
+        </div>
+        <div class="vp-item" onclick="selectVaccine(this)">
+          <div class="vp-header"><span class="vp-icon">🌡️</span><div class="vp-meta"><div class="vp-name">FeLV (Leukemia)</div><div class="vp-sub">Non-inti · Terutama untuk outdoor</div></div><span class="vp-price-badge" style="background:var(--gray);">Rp100–200rb</span></div>
+          <div class="vp-edu-expand"><div class="vp-edu-inner"><div class="vp-edu-desc">Untuk kucing yang sering kontak dengan kucing lain. Menular lewat air liur &amp; grooming bersama.</div><div class="vp-edu-age"><span class="age-icon">📅</span><span class="age-text">2 dosis (jarak 3–4 minggu), booster tiap tahun</span></div></div></div>
+        </div>
+      </div>
+      <div class="field-group"><div class="field-label">Tanggal Diberikan</div><input class="field-input" type="date" value="2025-05-01"></div>
+      <div class="field-group"><div class="field-label">Dokter / Klinik Hewan</div><input class="field-input" type="text" placeholder="mis. Klinik Happy Paws" value="Happy Paws Clinic"></div>
+      <div class="field-group"><div class="field-label">Nomor Batch (opsional)</div><input class="field-input" type="text" placeholder="mis. RB2405"></div>
+      <div class="field-group"><div class="field-label">Catatan Kamu 💬</div><input class="field-input" type="text" placeholder="mis. Luna berani banget hari ini!"></div>
+      <button class="btn-pink" onclick="showScreen('timeline', document.querySelectorAll('.tab-btn')[2])">🐾 Simpan Catatan Luna!</button>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       SCREEN 5: REMINDERS
+  ════════════════════════════════════ -->
+  <div class="screen" id="reminders">
+    <div class="statusbar"><span>10:25</span><div class="icons"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#111" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><svg viewBox="0 0 24 24" width="14" height="14" fill="#111"><rect x="2" y="7" width="16" height="10" rx="2"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg></div></div>
+    <div class="screen-header">
+      <button class="back-btn" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])">←</button>
+      <div class="screen-title">Pengingat 🔔</div>
+    </div>
+    <div class="reminder-mascot">
+      <div class="alert-bubble">⚠️ Luna butuh kamu!</div>
+      <!-- mascotWorried() from js/mascot.js -->
+      <svg width="110" height="100" viewBox="0 0 120 110" fill="none">
+        <ellipse cx="60" cy="85" rx="35" ry="23" fill="white" stroke="#111" stroke-width="3"/>
+        <circle cx="60" cy="50" r="30" fill="white" stroke="#111" stroke-width="3"/>
+        <polygon points="36,28 26,4 50,28" fill="#FF4896" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="84,28 94,4 70,28" fill="#FF4896" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+        <circle cx="48" cy="46" r="9" fill="white" stroke="#111" stroke-width="2.5"/>
+        <circle cx="72" cy="46" r="9" fill="white" stroke="#111" stroke-width="2.5"/>
+        <circle cx="50" cy="47" r="5" fill="#111"/>
+        <circle cx="74" cy="47" r="5" fill="#111"/>
+        <path d="M42 38 Q48 34 54 38" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M66 38 Q72 34 78 38" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M60 58 L57 55 L63 55 Z" fill="#FF4896"/>
+        <path d="M56 62 Q60 58 64 62" stroke="#111" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="37" cy="52" rx="5.5" ry="3" fill="#FF4896" opacity="0.35"/>
+        <ellipse cx="83" cy="52" rx="5.5" ry="3" fill="#FF4896" opacity="0.35"/>
+        <ellipse cx="36" cy="100" rx="12" ry="7" fill="white" stroke="#111" stroke-width="2.5"/>
+        <ellipse cx="84" cy="100" rx="12" ry="7" fill="white" stroke="#111" stroke-width="2.5"/>
+        <ellipse cx="60" cy="88" rx="14" ry="10" fill="#FFF3B0"/>
+        <path d="M88 32 Q90 26 88 22 Q86 26 88 32Z" fill="#015FEE" stroke="#111" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="reminder-scroll">
+      <div style="font-weight:900;font-size:15px;color:var(--black);">Jadwal Luna 📋</div>
+      <div class="reminder-card soon">
+        <div class="rc-icon soon-icon">💉</div>
+        <div class="rc-content">
+          <div class="rc-name">Rabies Booster Tahunan</div>
+          <div class="rc-time">📅 15 Mei 2025 · 14 hari lagi</div>
+          <div class="rc-why">⚡ Rabies bisa menular ke manusia! Booster wajib tiap tahun untuk perlindungan optimal.</div>
+        </div>
+        <span class="rc-badge soon-badge">Segera</span>
+      </div>
+      <div class="reminder-card scheduled">
+        <div class="rc-icon sched-icon">🌡️</div>
+        <div class="rc-content">
+          <div class="rc-name">FeLV Annual</div>
+          <div class="rc-time">📅 15 Jun 2025 · 45 hari lagi</div>
+          <div class="rc-why">🐱 FeLV menular lewat grooming bersama. Penting jika Luna sering kontak kucing lain.</div>
+        </div>
+        <span class="rc-badge sched-badge">Direncanakan</span>
+      </div>
+      <div class="reminder-card scheduled">
+        <div class="rc-icon sched-icon">🔬</div>
+        <div class="rc-content">
+          <div class="rc-name">Tricat/FVRCP Tahunan</div>
+          <div class="rc-time">📅 Sep 2025 · 132 hari lagi</div>
+          <div class="rc-why">🛡️ Melindungi dari Panleukopenia, Rhinotracheitis, dan Calicivirus secara berkelanjutan.</div>
+        </div>
+        <span class="rc-badge sched-badge">Direncanakan</span>
+      </div>
+      <div class="divider"></div>
+      <div class="did-you-know">
+        <div class="dyk-header"><span class="dyk-icon">🎓</span><div class="dyk-title">Tahukah kamu?</div></div>
+        <div class="dyk-facts">
+          <div class="dyk-fact">💰 Total vaksin lengkap kucing di Indonesia berkisar <strong>Rp350.000 – Rp800.000</strong> per tahun.</div>
+          <div class="dyk-fact">🏠 Kucing indoor <strong>tetap perlu divaksin</strong> — virus bisa masuk lewat udara atau kontak tidak langsung.</div>
+          <div class="dyk-fact">✅ Sebelum vaksin, pastikan suhu tubuh kucing normal: <strong>38–39,5°C</strong>.</div>
+          <div class="dyk-fact">🆓 <strong>Puskeswan</strong> (layanan hewan pemerintah) kadang menyediakan vaksin gratis di momen tertentu!</div>
+        </div>
+      </div>
+      <div class="reminder-btn" onclick="showScreen('addvaccine', document.querySelectorAll('.tab-btn')[3])">➕ Jadwalkan Pengingat Baru</div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])"><div class="nav-icon">🏠</div><div class="nav-label">Home</div></div>
+      <div class="nav-item" onclick="showScreen('timeline', document.querySelectorAll('.tab-btn')[2])"><div class="nav-icon">📅</div><div class="nav-label">Timeline</div></div>
+      <div class="nav-item" onclick="showScreen('addvaccine', document.querySelectorAll('.tab-btn')[3])"><div class="nav-icon">➕</div><div class="nav-label">Tambah</div></div>
+      <div class="nav-item active"><div class="nav-icon">🔔</div><div class="nav-label" style="color:var(--blue)">Pengingat</div></div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════
+       SCREEN 6: VACCINE EDUCATION DETAIL
+  ════════════════════════════════════ -->
+  <div class="screen" id="vaccinedetail">
+    <div class="statusbar"><span>10:25</span><div class="icons"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#111" stroke-width="2.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg><svg viewBox="0 0 24 24" width="14" height="14" fill="#111"><rect x="2" y="7" width="16" height="10" rx="2"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg></div></div>
+    <div class="screen-header">
+      <button class="back-btn" onclick="showScreen('dashboard', document.querySelectorAll('.tab-btn')[1])">←</button>
+      <div class="screen-title">Panduan Vaksin 📖</div>
+    </div>
+    <div class="detail-hero">
+      <svg width="80" height="75" viewBox="0 0 140 130" fill="none">
+        <ellipse cx="70" cy="100" rx="40" ry="28" fill="white" stroke="#111" stroke-width="3"/>
+        <circle cx="70" cy="60" r="34" fill="white" stroke="#111" stroke-width="3"/>
+        <polygon points="44,36 33,10 58,32" fill="#FF4896" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="96,36 107,10 82,32" fill="#FF4896" stroke="#111" stroke-width="3" stroke-linejoin="round"/>
+        <polygon points="47,34 37,14 57,30" fill="#FFB3D1"/>
+        <polygon points="93,34 103,14 83,30" fill="#FFB3D1"/>
+        <path d="M56 56 Q60 50 64 56" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M76 56 Q80 50 84 56" stroke="#111" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M70 68 L67 65 L73 65 Z" fill="#FF4896"/>
+        <path d="M67 71 Q70 75 73 71" stroke="#111" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="70" cy="103" rx="16" ry="12" fill="#FFF3B0"/>
+      </svg>
+      <div class="detail-badge">Vaksin Kucing di Indonesia 🇮🇩</div>
+    </div>
+    <div class="detail-scroll">
+      <div class="detail-section">
+        <div class="detail-section-title">📅 Urutan Vaksinasi</div>
+        <div class="detail-desc">Di Indonesia ada 3 tahap vaksin wajib sebelum kucing berusia 6 bulan:</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:#F0FDF4;border:3px solid #111;border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;">
+            <div style="background:var(--green);border:3px solid #111;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:white;flex-shrink:0;">1</div>
+            <div><div style="font-weight:900;font-size:13px;">Tricat / F3</div><div style="font-size:11px;font-weight:700;color:var(--gray);">Usia 8–10 minggu · Rp80.000–250.000</div></div>
+          </div>
+          <div style="background:#FFFDE7;border:3px solid #111;border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;">
+            <div style="background:var(--yellow);border:3px solid #111;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0;">2</div>
+            <div><div style="font-weight:900;font-size:13px;">Tetracat / F4</div><div style="font-size:11px;font-weight:700;color:var(--gray);">Usia 12–14 minggu · Rp170.000–210.000</div></div>
+          </div>
+          <div style="background:#FEF2F2;border:3px solid #111;border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center;">
+            <div style="background:var(--red);border:3px solid #111;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:white;flex-shrink:0;">3</div>
+            <div><div style="font-weight:900;font-size:13px;">Rabies</div><div style="font-size:11px;font-weight:700;color:var(--gray);">Usia 20 minggu · ~Rp100.000</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="detail-section">
+        <div class="detail-section-title">🦠 Penyakit yang Dicegah</div>
+        <div class="symptom-list">
+          <div class="symptom-item"><span class="si-icon">☠️</span><div class="si-text"><strong>Panleukopenia</strong> — Tingkat kematian sangat tinggi pada anak kucing. Menyerang usus &amp; sumsum tulang.</div></div>
+          <div class="symptom-item"><span class="si-icon">🫁</span><div class="si-text"><strong>Rhinotracheitis (FHV-1)</strong> — Infeksi saluran napas parah. Bisa kambuh berulang kali meski sudah sembuh.</div></div>
+          <div class="symptom-item"><span class="si-icon">😷</span><div class="si-text"><strong>Calicivirus</strong> — Sariawan, demam, sulit makan. Mudah menular di area dengan banyak kucing.</div></div>
+          <div class="symptom-item"><span class="si-icon">👁️</span><div class="si-text"><strong>Chlamydia</strong> — Infeksi mata parah, kelopak mata bengkak hingga menutup sendiri.</div></div>
+          <div class="symptom-item"><span class="si-icon">🧠</span><div class="si-text"><strong>Rabies</strong> — Menyerang sistem saraf, hampir selalu fatal. Bisa menular ke manusia!</div></div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="zoonosis-warning">
+        <div class="zw-header"><span class="zw-icon">🚨</span><div class="zw-title">Zoonosis – Menular ke Manusia!</div></div>
+        <div class="zw-text">Rabies adalah penyakit zoonosis penting di Indonesia. Virus ini bisa menular dari kucing ke manusia melalui gigitan atau cakaran. Vaksinasi kucing = melindungi kamu dan keluarga juga!</div>
+      </div>
+      <div class="divider"></div>
+      <div class="detail-section">
+        <div class="detail-section-title">💡 Tips Penting</div>
+        <div class="info-row">
+          <div class="info-box blue-box"><div class="ib-icon">🌡️</div><div class="ib-val" style="color:var(--blue)">38–39.5°C</div><div class="ib-label">Suhu normal sebelum vaksin</div></div>
+          <div class="info-box green-box"><div class="ib-icon">💰</div><div class="ib-val" style="color:var(--green-dark)">Rp350–800rb</div><div class="ib-label">Total vaksin per tahun</div></div>
+        </div>
+        <div class="info-row">
+          <div class="info-box yellow-box"><div class="ib-icon">📍</div><div class="ib-val" style="color:#D97706">Puskeswan</div><div class="ib-label">Layanan pemerintah, kadang gratis!</div></div>
+          <div class="info-box" style="background:#FEF2F2;"><div class="ib-icon">⏰</div><div class="ib-val" style="color:var(--red)">1–3 Tahun</div><div class="ib-label">Interval booster dewasa</div></div>
+        </div>
+      </div>
+      <button class="btn-primary" onclick="showScreen('timeline', document.querySelectorAll('.tab-btn')[2])">Lihat Timeline Luna 📅</button>
+    </div>
+  </div>
+
+</div><!-- end .phone -->
+
+<!-- JS Files -->
+<script src="js/mascot.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
