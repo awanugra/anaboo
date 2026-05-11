@@ -49,16 +49,18 @@ export default function App() {
     }
   }, [session, currentScreen])
 
+  // Guard: logged in but no pets — force onboarding (runs after state updates,
+  // so it correctly reflects the latest pets.length without stale closures)
+  useEffect(() => {
+    if (session && pets.length === 0 && currentScreen === 'dashboard') {
+      setCurrentScreen('onboarding-new')
+    }
+  }, [session, pets.length, currentScreen])
+
   const currentPet = pets.find(p => p.id === currentPetId) || null
 
-  const navigate = (screen) => {
-    // First-time onboarding gate: after auth, if no pets, force onboarding-new
-    if (screen === 'dashboard' && pets.length === 0) {
-      setCurrentScreen('onboarding-new')
-      return
-    }
-    setCurrentScreen(screen)
-  }
+  // Plain navigate — gate is handled by useEffect above, so no stale-closure issue
+  const navigate = (screen) => setCurrentScreen(screen)
 
   // Auth
   const login = (email /*, password */) => {

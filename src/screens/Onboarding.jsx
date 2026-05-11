@@ -18,6 +18,7 @@ export default function Onboarding({ navigate, petData, savePet, addPet, mode = 
   const isNew = mode === 'new' || firstTime
 
   const [step, setStep] = useState(0)
+  const [submitting, setSubmitting] = useState(false)
 
   // Step 1
   const [species, setSpecies] = useState(petData?.species ?? '')
@@ -77,7 +78,8 @@ export default function Onboarding({ navigate, petData, savePet, addPet, mode = 
   }
 
   const handleFinish = () => {
-    if (!name.trim() || !species) return
+    if (submitting || !name.trim() || !species) return
+    setSubmitting(true)
     const data = { species, breed, name: name.trim(), birthDate, gender, weight, photo, furColor, eyeColor, illustration }
     if (isNew) addPet(data)
     else savePet(data)
@@ -336,8 +338,8 @@ export default function Onboarding({ navigate, petData, savePet, addPet, mode = 
       {/* Footer with dots + CTA */}
       <div className="px-6 pt-3 pb-6 flex flex-col gap-3 border-t border-slate-100">
         <StepDots total={STEPS} current={step} />
-        <Button onClick={handleNext} disabled={!canNext}>
-          {step < STEPS - 1 ? t('common.next') : t('onboarding.finish')}
+        <Button onClick={handleNext} disabled={!canNext || submitting}>
+          {step < STEPS - 1 ? t('common.next') : (submitting ? t('onboarding.generating') : t('onboarding.finish'))}
         </Button>
       </div>
     </div>
