@@ -28,10 +28,18 @@ function EyeIcon({ open }) {
   )
 }
 
-export default function Login({ navigate }) {
+export default function Login({ navigate, login }) {
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [showPass, setShowPass] = useState(false)
+  const [error, setError]       = useState('')
+
+  const handleSubmit = () => {
+    setError('')
+    if (!email.includes('@')) return setError('Format email belum benar')
+    if (password.length < 6)   return setError('Password minimal 6 karakter')
+    login(email, password)
+  }
 
   return (
     <div className="flex flex-col min-h-[760px] bg-white overflow-hidden">
@@ -102,7 +110,11 @@ export default function Login({ navigate }) {
           </button>
         </div>
 
-        <Button onClick={() => navigate('dashboard')}>Masuk</Button>
+        {error && (
+          <p className="text-[12px] font-semibold text-brand-red text-center animate-fadeUp">{error}</p>
+        )}
+
+        <Button onClick={handleSubmit}>Masuk</Button>
 
         {/* Footer */}
         <p className="text-center text-[14px] font-semibold text-slate-500 mt-1">

@@ -51,7 +51,7 @@ function Toggle({ on, onChange }) {
   )
 }
 
-export default function Settings({ navigate }) {
+export default function Settings({ navigate, user, logout }) {
   const { t, i18n } = useTranslation()
   const [notif3, setNotif3]     = useLocalStorage('anaboo_notif_3', true)
   const [notif1, setNotif1]     = useLocalStorage('anaboo_notif_1', true)
@@ -71,8 +71,8 @@ export default function Settings({ navigate }) {
           <div className="flex items-center gap-3 px-4 py-4">
             <div className="w-14 h-14 rounded-full bg-brand-orange-lt flex items-center justify-center text-[28px]">👤</div>
             <div className="flex-1 min-w-0">
-              <p className="font-display text-[16px] font-extrabold text-slate-700 truncate">Kurniawan</p>
-              <p className="text-[12px] font-semibold text-slate-500 truncate">kurniawan.nugraha@astronauts.id</p>
+              <p className="font-display text-[16px] font-extrabold text-slate-700 truncate">{user?.name || 'Anaboo User'}</p>
+              <p className="text-[12px] font-semibold text-slate-500 truncate">{user?.email || '—'}</p>
             </div>
             <button className="text-[12px] font-extrabold text-brand-blue active:opacity-70">{t('settings.editProfile')}</button>
           </div>
@@ -149,7 +149,7 @@ export default function Settings({ navigate }) {
         {/* Logout */}
         <div className="mx-4 mt-4">
           <button
-            onClick={() => navigate('login')}
+            onClick={() => { if (confirm(t('settings.logout') + '?')) logout?.() }}
             className="w-full py-3.5 rounded-2xl bg-brand-red-lt text-brand-red font-extrabold text-[14px] active:scale-[0.98] transition-all"
           >
             {t('settings.logout')}

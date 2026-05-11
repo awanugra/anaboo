@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { cn } from './lib/utils'
 import useLocalStorage from './hooks/useLocalStorage'
 import Onboarding from './screens/Onboarding'
@@ -12,6 +12,8 @@ import Settings from './screens/Settings'
 import Login from './screens/Login'
 import Register from './screens/Register'
 import ForgotPassword from './screens/ForgotPassword'
+
+const IS_DEV = !import.meta.env.PROD
 
 const TABS = [
   ['login',          'Login'],
@@ -27,11 +29,25 @@ const TABS = [
   ['settings',       'Setting'],
 ]
 
+const PUBLIC_SCREENS = ['login', 'register', 'forgot-password']
+
 export default function App() {
-  const [currentScreen, setCurrentScreen]   = useState('login')
+  const [user, setUser]                     = useLocalStorage('anaboo_user', null)
+  const [session, setSession]               = useLocalStorage('anaboo_session', false)
   const [pets, setPets]                     = useLocalStorage('anaboo_pets', [])
   const [currentPetId, setCurrentPetId]     = useLocalStorage('anaboo_current_pet', null)
   const [records, setRecords]               = useLocalStorage('anaboo_records', [])
+
+  // Initial screen — based on auth state
+  const initialScreen = session ? (pets.length === 0 ? 'onboarding-new' : 'dashboard') : 'login'
+  const [currentScreen, setCurrentScreen] = useState(initialScreen)
+
+  // Guard: if not logged in and tries to access private screen, kick to login
+  useEffect(() => {
+    if (!session && !PUBLIC_SCREENS.includes(currentScreen)) {
+      setCurrentScreen('login')
+    }
+  }, [session, currentScreen])
 
   const currentPet = pets.find(p => p.id === currentPetId) || null
 
@@ -42,6 +58,29 @@ export default function App() {
       return
     }
     setCurrentScreen(screen)
+  }
+
+  // Auth
+  const login = (email /*, password */) => {
+    // MVP: client-side only. Trust stored user.
+    // If user record matches email → welcome back. Otherwise create lightweight user record.
+    const matched = user && user.email === email.toLowerCase().trim()
+    if (!matched) {
+      setUser({ email: email.toLowerCase().trim(), name: email.split('@')[0] })
+    }
+    setSession(true)
+    // Existing pets → dashboard, otherwise force onboarding
+    setCurrentScreen(pets.length === 0 ? 'onboarding-new' : 'dashboard')
+  }
+  const register = ({ name, email /*, password */ }) => {
+    setUser({ name: name.trim(), email: email.toLowerCase().trim() })
+    setSession(true)
+    // Fresh account always goes to onboarding (first pet)
+    setCurrentScreen('onboarding-new')
+  }
+  const logout = () => {
+    setSession(false)
+    setCurrentScreen('login')
   }
 
   const savePet = (data) => setPets(prev => prev.map(p => p.id === currentPetId ? { ...p, ...data } : p))
@@ -69,15 +108,43 @@ export default function App() {
     savePet,
     addPet,
     switchPet,
+    user,
+    login,
+    register,
+    logout,
   }
 
+  // Production layout: clean, just the phone frame full-bleed
+  if (!IS_DEV) {
+    return (
+      <div className="min-h-screen bg-brand-cream flex items-center justify-center font-body">
+        <div className="w-full max-w-[440px] min-h-screen bg-white relative shadow-card">
+          {currentScreen === 'login'           && <Login           {...screenProps} />}
+          {currentScreen === 'register'        && <Register        {...screenProps} />}
+          {currentScreen === 'forgot-password' && <ForgotPassword  {...screenProps} />}
+          {(currentScreen === 'onboarding' || isNewPet) && (
+            <Onboarding {...screenProps} mode={isNewPet ? 'new' : 'edit'} firstTime={isFirstTime} />
+          )}
+          {currentScreen === 'dashboard'  && <Dashboard  {...screenProps} />}
+          {currentScreen === 'pet-book'   && <PetBook    {...screenProps} />}
+          {currentScreen === 'addvaccine' && <AddVaccine {...screenProps} />}
+          {currentScreen === 'reminders'  && <Reminders  {...screenProps} />}
+          {currentScreen === 'articles'   && <Articles   {...screenProps} />}
+          {currentScreen === 'clinics'    && <Clinics    {...screenProps} />}
+          {currentScreen === 'settings'   && <Settings   {...screenProps} />}
+        </div>
+      </div>
+    )
+  }
+
+  // Dev layout: phone frame on dark bg + dev tab bar
   return (
     <div className="bg-[#0F172A] min-h-screen flex flex-col items-center py-7 px-4 pb-16 gap-5 font-body">
       <h1 className="font-display text-[1.75rem] text-white/90 tracking-wide text-center">
         🐾 <img src="/anaboo-logo.svg" alt="Anaboo" className="inline h-7 align-middle" />
       </h1>
 
-      {/* Dev tab bar */}
+      {/* Dev tab bar — only visible in development */}
       <div className="flex gap-1.5 flex-wrap justify-center max-w-[700px]">
         {TABS.map(([id, label]) => (
           <button
@@ -97,9 +164,9 @@ export default function App() {
 
       {/* Phone frame */}
       <div className="w-[375px] rounded-[48px] overflow-hidden relative shrink-0 bg-white">
-        {currentScreen === 'login'           && <Login           navigate={navigate} />}
-        {currentScreen === 'register'        && <Register        navigate={navigate} />}
-        {currentScreen === 'forgot-password' && <ForgotPassword  navigate={navigate} />}
+        {currentScreen === 'login'           && <Login           {...screenProps} />}
+        {currentScreen === 'register'        && <Register        {...screenProps} />}
+        {currentScreen === 'forgot-password' && <ForgotPassword  {...screenProps} />}
         {(currentScreen === 'onboarding' || isNewPet) && (
           <Onboarding {...screenProps} mode={isNewPet ? 'new' : 'edit'} firstTime={isFirstTime} />
         )}

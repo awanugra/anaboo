@@ -29,13 +29,23 @@ function EyeIcon({ open }) {
   )
 }
 
-export default function Register({ navigate }) {
+export default function Register({ navigate, register }) {
   const [name, setName]             = useState('')
   const [email, setEmail]           = useState('')
   const [password, setPassword]     = useState('')
   const [confirm, setConfirm]       = useState('')
   const [showPass, setShowPass]     = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [error, setError]           = useState('')
+
+  const handleSubmit = () => {
+    setError('')
+    if (!name.trim())           return setError('Nama harus diisi')
+    if (!email.includes('@'))   return setError('Format email belum benar')
+    if (password.length < 6)    return setError('Password minimal 6 karakter')
+    if (confirm !== password)   return setError('Password tidak cocok')
+    register({ name, email, password })
+  }
 
   return (
     <div className="flex flex-col min-h-[760px] bg-white overflow-hidden">
@@ -144,7 +154,11 @@ export default function Register({ navigate }) {
           <span className="text-slate-700 font-bold">Kebijakan Privasi</span> kami.
         </p>
 
-        <Button onClick={() => navigate('onboarding')}>Buat Akun</Button>
+        {error && (
+          <p className="text-[12px] font-semibold text-brand-red text-center animate-fadeUp">{error}</p>
+        )}
+
+        <Button onClick={handleSubmit}>Buat Akun</Button>
 
         <p className="text-center text-[14px] font-semibold text-slate-500">
           Sudah punya akun?{' '}
