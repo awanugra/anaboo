@@ -74,18 +74,18 @@ export default function Profile({ navigate, user, progress, pets = [], tasks = [
   return (
     <div className="flex flex-col min-h-[760px] bg-brand-cream overflow-hidden">
       <div className="flex-1 overflow-y-auto scrollbar-thin pb-4">
-        {/* Profile header — rounded bottom */}
+        {/* Profile header — rounded bottom, stats float over it */}
         <div
-          className="bg-white pt-6 px-5 pb-6 shadow-card"
-          style={{ borderBottomLeftRadius: 36, borderBottomRightRadius: 36 }}
+          className="bg-white pt-6 px-5 shadow-card relative"
+          style={{ borderBottomLeftRadius: 40, borderBottomRightRadius: 40, paddingBottom: 50 }}
         >
-          <p className="font-display text-h1 text-slate-700">{t('profile.title')}</p>
+          <p className="font-display text-h1 text-slate-800">{t('profile.title')}</p>
 
           <div className="flex items-center gap-4 mt-4">
             <div className="w-20 h-20 rounded-full bg-brand-orange-lt flex items-center justify-center text-[40px]">👤</div>
             <div className="flex-1 min-w-0">
-              <p className="font-display text-[18px] font-extrabold text-slate-700 truncate">{user?.name || 'Pet Parent'}</p>
-              <p className="text-[12px] font-semibold text-slate-500 truncate">{user?.email || '—'}</p>
+              <p className="font-display text-[20px] font-extrabold text-slate-800 truncate">{user?.name || 'Pet Parent'}</p>
+              <p className="text-[13px] font-semibold text-slate-500 truncate">{user?.email || '—'}</p>
               <div className="mt-2 inline-flex items-center gap-1 bg-brand-orange rounded-full px-3 py-1">
                 <span className="text-[11px]">⭐</span>
                 <span className="text-[11px] font-extrabold text-white">{t('profile.goldMember')}</span>
@@ -96,7 +96,7 @@ export default function Profile({ navigate, user, progress, pets = [], tasks = [
           {/* Level progress */}
           <div className="mt-5">
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-[12px] font-extrabold text-slate-700">{t('home.level', { level })}</span>
+              <span className="text-[13px] font-extrabold text-slate-700">{t('home.level', { level })}</span>
               <span className="text-[12px] font-semibold text-slate-500">{toNext} XP to next</span>
             </div>
             <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
@@ -106,34 +106,41 @@ export default function Profile({ navigate, user, progress, pets = [], tasks = [
               />
             </div>
           </div>
+        </div>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-2 mt-5">
-            {[
-              { label: t('profile.totalPets'),    val: pets.length,            emoji: '🐾' },
-              { label: t('profile.tasksDone'),    val: tasksDone,              emoji: '✓' },
-              { label: t('profile.longestStreak'),val: progress?.daily_streak ?? 0, emoji: '🔥' },
-            ].map(s => (
-              <div key={s.label} className="bg-brand-peach rounded-2xl py-3 text-center">
-                <span className="text-[20px]">{s.emoji}</span>
-                <p className="text-[16px] font-extrabold text-slate-700 mt-1">{s.val}</p>
-                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{s.label}</p>
+        {/* Floating stats — overlap header */}
+        <div className="px-5 -mt-8 relative z-10 flex gap-3">
+          {[
+            { label: 'XP Points',    val: xp,                              emoji: '⭐', bg: '#FFFDE7', color: '#FFB300' },
+            { label: 'Daily Streak', val: progress?.daily_streak ?? 0,     emoji: '🔥', bg: '#FFF3E0', color: '#FF8A65' },
+            { label: 'Pets',         val: pets.length,                     emoji: '🐾', bg: '#E1F5FE', color: '#03A9F4' },
+          ].map(s => (
+            <div
+              key={s.label}
+              className="flex-1 bg-white rounded-2xl p-3.5 flex flex-col items-center"
+              style={{ boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}
+            >
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-[18px] mb-1.5"
+                style={{ background: s.bg }}
+              >
+                {s.emoji}
               </div>
-            ))}
-          </div>
+              <p className="text-[16px] font-extrabold text-slate-800">{s.val}</p>
+              <p className="text-[10px] font-bold text-slate-400 text-center mt-0.5">{s.label}</p>
+            </div>
+          ))}
         </div>
 
         {/* Achievements */}
-        <div className="px-5 mt-5">
-          <div className="flex items-center justify-between mb-2">
-            <p className="text-[12px] font-extrabold text-slate-500 uppercase tracking-[0.5px]">{t('profile.achievements')}</p>
+        <div className="px-5 mt-7">
+          <div className="flex items-center justify-between mb-3">
+            <p className="font-display text-[18px] font-extrabold text-slate-800">{t('profile.achievements')}</p>
             <span className="text-[12px] font-extrabold text-brand-orange">{unlockedCount}/{achievements.length}</span>
           </div>
-          <div className="bg-white rounded-3xl py-4 px-2 shadow-card">
-            <div className="overflow-x-auto scrollbar-thin">
-              <div className="flex gap-3 px-2 w-max">
-                {achievements.map(a => <AchievementBadge key={a.id} achievement={a} />)}
-              </div>
+          <div className="overflow-x-auto scrollbar-thin -mx-5 px-5 py-1">
+            <div className="flex gap-4 w-max">
+              {achievements.map(a => <AchievementBadge key={a.id} achievement={a} />)}
             </div>
           </div>
         </div>
