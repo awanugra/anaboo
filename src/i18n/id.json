@@ -10,12 +10,18 @@
     "yes": "Ya",
     "no": "Tidak",
     "optional": "(opsional)",
-    "required": "*"
+    "required": "*",
+    "all": "Semua",
+    "today": "Hari ini",
+    "yesterday": "Kemarin",
+    "tomorrow": "Besok"
   },
   "nav": {
     "home": "Beranda",
-    "articles": "Artikel",
-    "clinics": "Klinik"
+    "pets": "Anabul",
+    "tasks": "Tugas",
+    "nearby": "Layanan",
+    "profile": "Profil"
   },
   "login": {
     "title": "Masuk",
@@ -32,12 +38,16 @@
     "signin": "Masuk"
   },
   "onboarding": {
+    "welcomeTitle": "Selamat datang di Anaboo",
+    "welcomeSubtitle": "Cara seru untuk melacak kesehatan, grooming, dan kebahagiaan anabulmu 🐾",
+    "getStarted": "Mulai",
+    "terms": "Dengan lanjut, kamu setuju dengan S&K dan Privasi kami",
     "step1Title": "Pilih Anabul & Kasih Nama",
-    "step1Subtitle": "Pilih hewan peliharaan kamu",
+    "step1Subtitle": "Pilih hewan peliharaanmu",
     "step2Title": "Detail Anabul",
     "step2Subtitle": "Biar Anaboo lebih kenal sama dia",
-    "step3Title": "Bikin Karakter Anabul",
-    "step3Subtitle": "Custom biar mirip aslinya",
+    "step3Title": "Custom Karakter Anabul",
+    "step3Subtitle": "Bikin mirip aslinya",
     "namePlaceholder": "Tulis nama anabulmu",
     "nameLabel": "Nama Anabul",
     "birthDate": "Tanggal Lahir",
@@ -58,71 +68,111 @@
     "finish": "Mulai yuk 🚀"
   },
   "home": {
-    "greeting": "Halo! 👋",
+    "greeting": "Halo, Pet Parent! 👋",
+    "welcome": "Selamat datang di Anaboo",
     "noPets": "Yuk daftarin anabul pertamamu",
-    "hasReminders": "Ada {{count}} pengingat buat anabulmu",
-    "allClear": "Semua anabul aman, no worries 🎉",
-    "selectPet": "Pilih anabul",
-    "addPet": "Tambah anabul baru",
-    "reminders": "{{count}} pengingat",
-    "safe": "Aman 🎉"
+    "myPets": "Anabulmu 🐾",
+    "addPet": "+ Tambah",
+    "todayTasks": "Tugas Hari Ini",
+    "quickActions": "Aksi Cepat",
+    "viewAll": "Lihat Semua →",
+    "doneCount": "{{done}}/{{total}} selesai",
+    "progressToday": "{{pct}}% progress hari ini",
+    "noTasksToday": "Tidak ada tugas hari ini!",
+    "allTasksDone": "Semua tugas selesai! Keren! 🌟",
+    "streak": "Daily Streak",
+    "streakDays": "{{count}} Hari 🔥",
+    "level": "Level {{level}}",
+    "addAnimal": "Tambah Hewan",
+    "todayTasksAction": "Tugas Hari Ini",
+    "nearbyAction": "Layanan Dekat",
+    "tipsAction": "Tips & Edukasi"
   },
-  "petBook": {
-    "vaccine": "Vaksin",
-    "deworm": "Obat Cacing",
-    "flea": "Obat Kutu",
-    "vitamin": "Vitamin",
-    "schedule": "Jadwal {{type}}",
-    "next": "Berikutnya",
-    "last": "Terakhir",
-    "history": "Riwayat",
-    "addRecord": "+ Catat",
-    "todayChecklist": "Checklist hari ini",
-    "weekHistory": "Riwayat 7 hari"
+  "pets": {
+    "title": "Anabulku",
+    "subtitle": "Kelola semua anabulmu di sini",
+    "addNew": "Tambah anabul baru",
+    "tasksDoneSummary": "{{count}} tugas selesai minggu ini"
   },
-  "reminders": {
-    "title": "Pengingat",
-    "urgent": "Perlu segera ({{count}})",
-    "upcoming": "Mendatang ({{count}})",
+  "petDetail": {
+    "medications": "Obat",
+    "vaccines": "Vaksin",
+    "care": "Perawatan",
+    "addMedication": "+ Tambah Obat",
+    "addVaccine": "+ Tambah Vaksin",
+    "addCare": "+ Tambah Perawatan",
+    "noRecords": "Belum ada riwayat",
+    "lifeStats": "Statistik",
+    "age": "Umur",
+    "weight": "Berat",
+    "breed": "Ras"
+  },
+  "tasks": {
+    "title": "Tugas",
+    "subtitle": "Pantau perawatan anabulmu",
+    "addTask": "Tambah Tugas",
+    "filterAll": "Semua",
+    "filterMeds": "Obat",
+    "filterVaccines": "Vaksin",
+    "filterCare": "Perawatan",
     "empty": "Semua aman!",
-    "emptySubtitle": "Nggak ada pengingat dalam 30 hari ke depan. Anaboo bakal ingetin lagi pas jadwalnya dekat ya 🐾",
-    "daysLeft": "{{days}} hari lagi",
-    "daysAgo": "{{days}} hari lalu",
-    "overdue": "Kelewat",
-    "h3": "H-3",
-    "scheduled": "Direncanakan"
+    "emptySubtitle": "Nggak ada tugas di hari ini. Tap + untuk nambah.",
+    "overdue": "Terlambat!",
+    "todayProgress": "Progress Hari Ini",
+    "summary": "{{done}}/{{total}} selesai",
+    "addModal": {
+      "title": "Tambah Tugas",
+      "selectType": "Tipe Tugas",
+      "selectPet": "Untuk anabul yang mana?",
+      "name": "Nama",
+      "namePlaceholder": "mis. Obat cacing",
+      "date": "Tanggal",
+      "time": "Waktu Pengingat",
+      "dosage": "Dosis (opsional)",
+      "dosagePlaceholder": "mis. 5mg",
+      "notes": "Catatan (opsional)",
+      "save": "Simpan"
+    }
   },
   "articles": {
-    "title": "Artikel",
+    "title": "Tips & Edukasi",
     "subtitle": "Tips & info biar makin paham anabulmu",
     "all": "Semua",
-    "readTime": "{{min}} menit baca"
+    "readTime": "{{min}} menit baca",
+    "search": "Cari artikel..."
   },
-  "clinics": {
-    "title": "Klinik",
-    "nearby": "{{count}} klinik terdekat",
-    "call": "📞 Telepon",
-    "openMaps": "🗺️ Buka Maps",
-    "open24": "24h"
+  "nearby": {
+    "title": "Layanan Terdekat",
+    "subtitle": "Cari klinik, hotel & grooming dekatmu",
+    "search": "Cari klinik, grooming, hotel...",
+    "viewMap": "Peta",
+    "viewList": "List",
+    "call": "Telepon",
+    "openMaps": "Buka Maps",
+    "open24": "24h",
+    "rating": "Rating",
+    "filterAll": "Semua",
+    "filterClinic": "Klinik",
+    "filterHotel": "Hotel",
+    "filterGrooming": "Grooming"
   },
-  "settings": {
-    "title": "Pengaturan",
-    "profile": "Profil",
-    "editProfile": "Edit profil",
-    "logout": "Keluar",
+  "profile": {
+    "title": "Profil",
+    "goldMember": "Anggota Gold",
+    "stats": "Statistik",
+    "totalPets": "Anabul",
+    "tasksDone": "Tugas Selesai",
+    "longestStreak": "Streak Terbaik",
+    "achievements": "Pencapaian",
+    "settings": "Pengaturan",
     "language": "Bahasa",
     "languageId": "Bahasa Indonesia",
     "languageEn": "English",
     "notifications": "Notifikasi",
     "notif3Days": "Pengingat H-3",
     "notif1Day": "Pengingat H-1",
-    "notifVitamin": "Reminder vitamin harian",
+    "notifVitamin": "Reminder perawatan harian",
     "notifSound": "Suara notifikasi",
-    "appearance": "Tampilan",
-    "theme": "Tema",
-    "themeAuto": "Otomatis",
-    "themeLight": "Terang",
-    "themeDark": "Gelap",
     "data": "Data",
     "exportData": "Export data",
     "importData": "Import data",
@@ -134,6 +184,12 @@
     "about": "Tentang",
     "version": "Versi {{version}}",
     "rate": "Beri rating ⭐",
-    "contact": "Hubungi kami"
+    "contact": "Hubungi kami",
+    "logout": "Keluar",
+    "logoutConfirm": "Yakin mau keluar?"
+  },
+  "xp": {
+    "earned": "+{{xp}} XP!",
+    "levelUp": "Naik level! 🎉 Sekarang level {{level}}"
   }
 }

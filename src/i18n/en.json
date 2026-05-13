@@ -10,12 +10,18 @@
     "yes": "Yes",
     "no": "No",
     "optional": "(optional)",
-    "required": "*"
+    "required": "*",
+    "all": "All",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow"
   },
   "nav": {
     "home": "Home",
-    "articles": "Articles",
-    "clinics": "Clinics"
+    "pets": "Pets",
+    "tasks": "Tasks",
+    "nearby": "Layanan",
+    "profile": "Profile"
   },
   "login": {
     "title": "Sign In",
@@ -32,6 +38,10 @@
     "signin": "Sign in"
   },
   "onboarding": {
+    "welcomeTitle": "Welcome to Anaboo",
+    "welcomeSubtitle": "The fun and friendly way to track your furry friends' health, grooming, and happiness! 🐾",
+    "getStarted": "Get Started",
+    "terms": "By continuing, you agree to our Terms & Privacy",
     "step1Title": "Choose Your Pet & Give It a Name",
     "step1Subtitle": "Select your pet",
     "step2Title": "Pet Details",
@@ -58,71 +68,111 @@
     "finish": "Let's go 🚀"
   },
   "home": {
-    "greeting": "Hi there! 👋",
+    "greeting": "Hello, Pet Parent! 👋",
+    "welcome": "Welcome to Anaboo",
     "noPets": "Let's register your first pet",
-    "hasReminders": "You have {{count}} reminder for your pets",
-    "allClear": "All pets are good, no worries 🎉",
-    "selectPet": "Select pet",
-    "addPet": "Add new pet",
-    "reminders": "{{count}} reminder",
-    "safe": "All good 🎉"
+    "myPets": "Your Pets 🐾",
+    "addPet": "+ Add",
+    "todayTasks": "Today's Tasks",
+    "quickActions": "Quick Actions",
+    "viewAll": "View All →",
+    "doneCount": "{{done}}/{{total}} done",
+    "progressToday": "{{pct}}% progress today",
+    "noTasksToday": "No tasks today!",
+    "allTasksDone": "All tasks done! Awesome! 🌟",
+    "streak": "Daily Streak",
+    "streakDays": "{{count}} Days 🔥",
+    "level": "Level {{level}}",
+    "addAnimal": "Add Pet",
+    "todayTasksAction": "Today's Tasks",
+    "nearbyAction": "Nearby Services",
+    "tipsAction": "Tips & Education"
   },
-  "petBook": {
-    "vaccine": "Vaccine",
-    "deworm": "Deworming",
-    "flea": "Flea Treatment",
-    "vitamin": "Vitamin",
-    "schedule": "{{type}} Schedule",
-    "next": "Next due",
-    "last": "Last",
-    "history": "History",
-    "addRecord": "+ Log",
-    "todayChecklist": "Today's checklist",
-    "weekHistory": "Last 7 days"
+  "pets": {
+    "title": "My Pets",
+    "subtitle": "Manage all your furry companions here",
+    "addNew": "Add new pet",
+    "tasksDoneSummary": "{{count}} tasks done this week"
   },
-  "reminders": {
-    "title": "Reminders",
-    "urgent": "Urgent ({{count}})",
-    "upcoming": "Upcoming ({{count}})",
+  "petDetail": {
+    "medications": "Medications",
+    "vaccines": "Vaccines",
+    "care": "Care",
+    "addMedication": "+ Add Medication",
+    "addVaccine": "+ Add Vaccine",
+    "addCare": "+ Add Care",
+    "noRecords": "No records yet",
+    "lifeStats": "Life Stats",
+    "age": "Age",
+    "weight": "Weight",
+    "breed": "Breed"
+  },
+  "tasks": {
+    "title": "Tasks",
+    "subtitle": "Stay on top of your pet's care",
+    "addTask": "Add Task",
+    "filterAll": "All",
+    "filterMeds": "Meds",
+    "filterVaccines": "Vaccines",
+    "filterCare": "Care",
     "empty": "All clear!",
-    "emptySubtitle": "No reminders in the next 30 days. Anaboo will remind you when the time comes 🐾",
-    "daysLeft": "{{days}} days left",
-    "daysAgo": "{{days}} days ago",
-    "overdue": "Overdue",
-    "h3": "D-3",
-    "scheduled": "Scheduled"
+    "emptySubtitle": "No tasks for this day. Tap + to add one.",
+    "overdue": "Overdue!",
+    "todayProgress": "Today's Progress",
+    "summary": "{{done}}/{{total}} completed",
+    "addModal": {
+      "title": "Add Task",
+      "selectType": "Task Type",
+      "selectPet": "For which pet?",
+      "name": "Name",
+      "namePlaceholder": "e.g. Heartworm pill",
+      "date": "Date",
+      "time": "Reminder Time",
+      "dosage": "Dosage (optional)",
+      "dosagePlaceholder": "e.g. 5mg",
+      "notes": "Notes (optional)",
+      "save": "Save Task"
+    }
   },
   "articles": {
-    "title": "Articles",
+    "title": "Tips & Education",
     "subtitle": "Tips & info to understand your pet better",
     "all": "All",
-    "readTime": "{{min}} min read"
+    "readTime": "{{min}} min read",
+    "search": "Search articles..."
   },
-  "clinics": {
-    "title": "Clinics",
-    "nearby": "{{count}} clinics nearby",
-    "call": "📞 Call",
-    "openMaps": "🗺️ Open Maps",
-    "open24": "24h"
+  "nearby": {
+    "title": "Nearby Services",
+    "subtitle": "Find clinics, hotels & grooming near you",
+    "search": "Search clinics, grooming, hotels...",
+    "viewMap": "Map",
+    "viewList": "List",
+    "call": "Call",
+    "openMaps": "Open Maps",
+    "open24": "24h",
+    "rating": "Rating",
+    "filterAll": "All",
+    "filterClinic": "Clinic",
+    "filterHotel": "Hotel",
+    "filterGrooming": "Grooming"
   },
-  "settings": {
-    "title": "Settings",
-    "profile": "Profile",
-    "editProfile": "Edit profile",
-    "logout": "Log out",
+  "profile": {
+    "title": "Profile",
+    "goldMember": "Gold Member",
+    "stats": "Stats",
+    "totalPets": "Pets",
+    "tasksDone": "Tasks Done",
+    "longestStreak": "Best Streak",
+    "achievements": "Achievements",
+    "settings": "Settings",
     "language": "Language",
     "languageId": "Bahasa Indonesia",
     "languageEn": "English",
     "notifications": "Notifications",
     "notif3Days": "3-day reminder",
     "notif1Day": "1-day reminder",
-    "notifVitamin": "Daily vitamin reminder",
+    "notifVitamin": "Daily care reminder",
     "notifSound": "Notification sound",
-    "appearance": "Appearance",
-    "theme": "Theme",
-    "themeAuto": "Auto",
-    "themeLight": "Light",
-    "themeDark": "Dark",
     "data": "Data",
     "exportData": "Export data",
     "importData": "Import data",
@@ -134,6 +184,12 @@
     "about": "About",
     "version": "Version {{version}}",
     "rate": "Rate us ⭐",
-    "contact": "Contact us"
+    "contact": "Contact us",
+    "logout": "Log out",
+    "logoutConfirm": "Are you sure you want to log out?"
+  },
+  "xp": {
+    "earned": "+{{xp}} XP!",
+    "levelUp": "Level up! 🎉 You're now level {{level}}"
   }
 }

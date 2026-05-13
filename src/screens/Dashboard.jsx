@@ -1,149 +1,193 @@
 import { useTranslation } from 'react-i18next'
-import Icon from '../components/Icon'
-import StatusBar from '../components/StatusBar'
 import BottomNav from '../components/BottomNav'
-import BellBadge from '../components/BellBadge'
-import { cn } from '../lib/utils'
-import { ageText } from '../lib/dates'
-import { SPECIES_BY_ID } from '../data/species'
-import { getActiveReminders, countActiveByPet } from '../lib/reminders'
+import StreakCard from '../components/StreakCard'
+import PetAvatar from '../components/PetAvatar'
+import { TASK_TYPES } from '../data/taskConstants'
+import { todayKey } from '../lib/dates'
 
-export default function Dashboard({ navigate, pets = [], allRecords = [], switchPet }) {
-  const { t, i18n } = useTranslation()
-  const lang = i18n.language?.startsWith('en') ? 'en' : 'id'
-  const reminders     = getActiveReminders(pets, allRecords)
-  const reminderCount = reminders.length
-  const perPet        = countActiveByPet(pets, allRecords)
+export default function Dashboard({ navigate, pets = [], tasks = [], progress, switchPet, user }) {
+  const { t } = useTranslation()
+  const today = todayKey()
+  const todayTasks = tasks.filter(tk => tk.date === today)
+  const doneCount = todayTasks.filter(tk => tk.is_done).length
+  const total = todayTasks.length
+  const progressPct = total > 0 ? Math.round((doneCount / total) * 100) : 0
+  const pendingTop = todayTasks.filter(tk => !tk.is_done).slice(0, 3)
+
+  const petMap = Object.fromEntries(pets.map(p => [p.id, p]))
 
   return (
-    <div className="flex flex-col min-h-[760px] bg-white overflow-hidden">
-      <StatusBar
-        title={t('nav.home')}
-        rightSlot={
-          <div className="flex items-center gap-1.5">
-            <BellBadge count={reminderCount} onClick={() => navigate('reminders')} />
-            <button
-              onClick={() => navigate('settings')}
-              className="w-10 h-10 rounded-full bg-brand-orange-lt flex items-center justify-center active:scale-90 transition-all"
-              aria-label="Settings"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="#475569"><path d="M12 8a4 4 0 100 8 4 4 0 000-8zm9.4 4a1 1 0 00-.7-.95l-2-.6a7 7 0 00-.5-1.2l1-1.85a1 1 0 00-.18-1.2l-1.4-1.4a1 1 0 00-1.2-.18l-1.85 1a7 7 0 00-1.2-.5l-.6-2A1 1 0 0012 2.6h-2a1 1 0 00-.95.7l-.6 2a7 7 0 00-1.2.5l-1.85-1a1 1 0 00-1.2.18L2.8 6.4a1 1 0 00-.18 1.2l1 1.85a7 7 0 00-.5 1.2l-2 .6A1 1 0 002.6 12v2a1 1 0 00.7.95l2 .6a7 7 0 00.5 1.2l-1 1.85a1 1 0 00.18 1.2l1.4 1.4a1 1 0 001.2.18l1.85-1a7 7 0 001.2.5l.6 2a1 1 0 00.95.7h2a1 1 0 00.95-.7l.6-2a7 7 0 001.2-.5l1.85 1a1 1 0 001.2-.18l1.4-1.4a1 1 0 00.18-1.2l-1-1.85a7 7 0 00.5-1.2l2-.6A1 1 0 0021.4 14v-2z"/></svg>
-            </button>
-          </div>
-        }
-      />
-
+    <div className="flex flex-col min-h-[760px] bg-brand-cream overflow-hidden">
       <div className="flex-1 overflow-y-auto scrollbar-thin pb-4">
         {/* Greeting */}
-        <div className="px-5 pt-5 pb-4">
-          <p className="font-display text-[22px] font-extrabold text-slate-700">{t('home.greeting')}</p>
-          <p className="text-[14px] font-semibold text-slate-500 mt-0.5">
-            {pets.length === 0
-              ? t('home.noPets')
-              : reminderCount > 0
-                ? t('home.hasReminders', { count: reminderCount })
-                : t('home.allClear')}
-          </p>
+        <div className="flex items-center justify-between px-5 pt-6 pb-5">
+          <div>
+            <p className="text-[14px] font-semibold text-slate-500">{t('home.greeting')}</p>
+            <p className="font-display text-h1 text-slate-700 mt-0.5">{user?.name ? `Hello, ${user.name}` : t('home.welcome')}</p>
+          </div>
+          <button
+            onClick={() => navigate('tasks')}
+            className="w-11 h-11 rounded-2xl bg-white shadow-card flex items-center justify-center active:scale-95 transition-all"
+            aria-label="notifications"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#FF8A65">
+              <path d="M12 2a7 7 0 00-7 7v4.6L3.3 17a1 1 0 00.9 1.4h15.6a1 1 0 00.9-1.4L19 13.6V9a7 7 0 00-7-7zm-2.5 18a2.5 2.5 0 005 0h-5z"/>
+            </svg>
+          </button>
         </div>
 
-        {/* Pet bookshelf — 2 cols */}
-        <div className="px-5">
-          <p className="text-[12px] font-extrabold text-slate-500 uppercase tracking-[0.5px] mb-3">
-            Pilih anabul
-          </p>
+        {/* Streak hero */}
+        <StreakCard progress={progress} />
+
+        {/* Pets row */}
+        <div className="mt-6">
+          <div className="px-5 flex items-center justify-between mb-3">
+            <p className="font-display text-[18px] font-extrabold text-slate-700">{t('home.myPets')}</p>
+            <button
+              onClick={() => navigate('onboarding-new')}
+              className="text-[13px] font-extrabold text-brand-orange active:opacity-70"
+            >
+              {t('home.addPet')}
+            </button>
+          </div>
 
           {pets.length === 0 ? (
             <button
               onClick={() => navigate('onboarding-new')}
-              className="w-full rounded-2xl border-2 border-dashed border-brand-orange/40 bg-white p-8 flex flex-col items-center gap-3 active:scale-[0.98] transition-all"
+              className="mx-5 w-[calc(100%-2.5rem)] rounded-2xl bg-white p-5 flex items-center gap-3 active:scale-[0.98] transition-all shadow-card border-2 border-dashed border-brand-orange/30"
             >
-              <div className="w-16 h-16 rounded-2xl bg-brand-orange-lt flex items-center justify-center">
-                <span className="text-[32px]">🐾</span>
+              <div className="w-14 h-14 rounded-2xl bg-brand-orange-lt flex items-center justify-center text-[24px]">🐾</div>
+              <div className="flex-1 text-left">
+                <p className="text-[14px] font-extrabold text-slate-700">{t('home.noPets')}</p>
+                <p className="text-[12px] font-semibold text-slate-500">Tap to add</p>
               </div>
-              <p className="font-display text-[16px] font-extrabold text-slate-700">Belum ada anabul</p>
-              <p className="text-[12px] font-semibold text-slate-500 text-center">Tap untuk daftarin anabul pertamamu</p>
+              <span className="text-[24px] text-brand-orange leading-none">+</span>
             </button>
           ) : (
-            <div className="grid grid-cols-2 gap-3">
-              {pets.map(pet => {
-                const sp = SPECIES_BY_ID[pet.species] || SPECIES_BY_ID.cat
-                const age   = ageText(pet.birthDate)
-                const count = perPet[pet.id] || 0
-
-                return (
-                  <button
+            <div className="overflow-x-auto scrollbar-thin">
+              <div className="flex gap-3 px-5 w-max">
+                {pets.map(pet => (
+                  <PetAvatar
                     key={pet.id}
-                    onClick={() => { switchPet(pet.id); navigate('pet-book') }}
-                    className="relative rounded-2xl bg-white p-4 flex flex-col gap-2.5 cursor-pointer active:scale-95 transition-all duration-200 border border-slate-100 shadow-card text-left"
-                  >
-                    {/* Notification badge */}
-                    {count > 0 && (
-                      <span className="absolute -top-1.5 -right-1.5 min-w-[24px] h-6 px-1.5 rounded-full bg-brand-orange flex items-center justify-center text-[12px] font-extrabold text-white animate-badge-pop ring-2 ring-white">
-                        {count > 9 ? '9+' : count}
-                      </span>
-                    )}
-
-                    {/* Avatar */}
-                    <div className={cn(
-                      'w-full aspect-square rounded-xl flex items-center justify-center overflow-hidden',
-                      count > 0 ? 'bg-brand-orange-lt' : 'bg-white'
-                    )}>
-                      {pet.photo ? (
-                        <img src={pet.photo} alt={pet.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="text-[48px]">{sp.emoji}</span>
-                      )}
-                    </div>
-
-                    {/* Info */}
-                    <div>
-                      <p className="font-display text-[16px] font-extrabold text-slate-700 leading-tight truncate">
-                        {pet.name}
-                      </p>
-                      <p className="text-[12px] font-semibold text-slate-500 truncate">
-                        {lang === 'en' ? sp.labelEn : sp.label}{age ? ` · ${age}` : ''}
-                      </p>
-                    </div>
-
-                    {/* Status pill */}
-                    <div className={cn(
-                      'text-[12px] font-bold px-2 py-1 rounded-lg text-center',
-                      count > 0 ? 'bg-brand-orange-lt text-brand-orange-dk' : 'bg-brand-green-lt text-brand-green-dk'
-                    )}>
-                      {count > 0 ? `${count} pengingat` : 'Aman 🎉'}
-                    </div>
-                  </button>
-                )
-              })}
-
-              {/* Add pet card */}
-              <button
-                onClick={() => navigate('onboarding-new')}
-                className="rounded-2xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer active:scale-95 transition-all border-2 border-dashed border-slate-200 bg-white min-h-[200px]"
-              >
-                <div className="w-12 h-12 rounded-xl bg-brand-orange-lt flex items-center justify-center">
-                  <span className="text-[24px] leading-none text-brand-orange">+</span>
-                </div>
-                <p className="text-[12px] font-bold text-slate-500 text-center leading-snug">Tambah<br />anabul baru</p>
-              </button>
+                    pet={pet}
+                    onClick={() => { switchPet(pet.id); navigate('pet-detail') }}
+                  />
+                ))}
+                <button
+                  onClick={() => navigate('onboarding-new')}
+                  className="flex flex-col items-center justify-center gap-2"
+                >
+                  <div className="w-[70px] h-[70px] rounded-full border-2 border-dashed border-slate-300 flex items-center justify-center text-[28px] text-slate-400">
+                    +
+                  </div>
+                  <span className="text-[12px] font-semibold text-slate-500">Add</span>
+                </button>
+              </div>
             </div>
           )}
         </div>
 
-        {/* Top reminder shortcut */}
-        {reminders.length > 0 && (
-          <div className="mx-5 mt-5 rounded-2xl bg-brand-orange p-4 flex items-center gap-3 cursor-pointer active:scale-[0.98] transition-all"
-               onClick={() => navigate('reminders')}>
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-              <Icon name="bell" size={20} tone="white" />
+        {/* Today's Tasks card */}
+        <div className="mt-6 px-5">
+          <p className="font-display text-[18px] font-extrabold text-slate-700 mb-3">{t('home.todayTasks')}</p>
+          <div className="bg-white rounded-3xl p-5 shadow-card">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-brand-blue-lt flex items-center justify-center">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#03A9F4"><path d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5zm5 13.4l-3.7-3.7 1.4-1.4 2.3 2.3 5.3-5.3 1.4 1.4-6.7 6.7z"/></svg>
+                </div>
+                <div>
+                  <p className="text-[15px] font-extrabold text-slate-700">{t('home.doneCount', { done: doneCount, total })}</p>
+                  {total > 0 && (
+                    <p className="text-[12px] font-semibold text-slate-500">{t('home.progressToday', { pct: progressPct })}</p>
+                  )}
+                </div>
+              </div>
+              <button onClick={() => navigate('tasks')} className="text-[13px] font-extrabold text-brand-orange active:opacity-70">
+                {t('home.viewAll')}
+              </button>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-[14px] font-extrabold text-white">{reminders[0].petName} {reminders[0].isOverdue ? 'kelewat' : `${reminders[0].daysLeft} hari lagi`} 🐾</p>
-              <p className="text-[12px] font-semibold text-white/90 truncate">{reminders[0].name}, jangan lupa ya</p>
-            </div>
-            <Icon name="back" size={16} className="rotate-180 shrink-0" tone="white" />
+
+            {total > 0 && (
+              <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden mb-3">
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{ width: `${progressPct}%`, background: progressPct === 100 ? '#4CAF50' : '#FF8A65' }}
+                />
+              </div>
+            )}
+
+            {pendingTop.length > 0 ? (
+              pendingTop.map((task, idx) => {
+                const type = TASK_TYPES[task.type] ?? TASK_TYPES.care
+                const pet = petMap[task.pet_id]
+                return (
+                  <button
+                    key={task.id}
+                    onClick={() => navigate('tasks')}
+                    className="w-full flex items-center gap-3 py-2.5 border-t border-slate-100 first:border-t-0 text-left active:bg-slate-50"
+                  >
+                    <div
+                      className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-[16px]"
+                      style={{ background: type.bg, color: type.color }}
+                    >
+                      {type.emoji}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-extrabold text-slate-700 truncate">{task.name}</p>
+                      <p className="text-[11px] font-semibold text-slate-500 truncate">
+                        🐾 {pet?.name}{task.time ? ` • ${task.time}` : ''}
+                      </p>
+                    </div>
+                    {task.is_overdue && (
+                      <span className="text-[10px] font-extrabold text-brand-red bg-brand-red-lt px-2 py-1 rounded-lg">
+                        Overdue
+                      </span>
+                    )}
+                    <span className="text-slate-300 text-[14px]">›</span>
+                  </button>
+                )
+              })
+            ) : total === 0 ? (
+              <div className="flex flex-col items-center py-6">
+                <span className="text-[32px] mb-2">🎉</span>
+                <p className="text-[13px] font-semibold text-slate-500">{t('home.noTasksToday')}</p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center py-6">
+                <span className="text-[32px] mb-2">✅</span>
+                <p className="text-[13px] font-extrabold text-brand-green-dk">{t('home.allTasksDone')}</p>
+              </div>
+            )}
           </div>
-        )}
+        </div>
+
+        {/* Quick actions */}
+        <div className="mt-6 px-5">
+          <p className="font-display text-[18px] font-extrabold text-slate-700 mb-3">{t('home.quickActions')}</p>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { label: t('home.addAnimal'),       emoji: '🐾', bg: '#FFF3E0', color: '#FF8A65', route: 'onboarding-new' },
+              { label: t('home.todayTasksAction'),emoji: '📋', bg: '#EDE7F6', color: '#7C4DFF', route: 'tasks' },
+              { label: t('home.nearbyAction'),    emoji: '📍', bg: '#E0F7FA', color: '#26C6DA', route: 'nearby' },
+              { label: t('home.tipsAction'),      emoji: '📚', bg: '#E8F5E9', color: '#4CAF50', route: 'articles' },
+            ].map((a, i) => (
+              <button
+                key={i}
+                onClick={() => navigate(a.route)}
+                className="bg-white rounded-3xl p-5 flex flex-col items-center gap-2 active:scale-95 transition-all shadow-card"
+              >
+                <div
+                  className="w-12 h-12 rounded-2xl flex items-center justify-center text-[24px]"
+                  style={{ background: a.bg }}
+                >
+                  {a.emoji}
+                </div>
+                <span className="text-[13px] font-extrabold text-slate-700 text-center leading-tight">{a.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       <BottomNav currentScreen="dashboard" navigate={navigate} />
