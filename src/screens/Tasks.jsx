@@ -74,7 +74,8 @@ export default function Tasks({ navigate, pets = [], tasks = [], progress, addTa
 
         {total === 0 ? (
           <EmptyState
-            emoji="🎉"
+            useMascot
+            variant="happy"
             title={t('tasks.empty')}
             subtitle={t('tasks.emptySubtitle')}
           />

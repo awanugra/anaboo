@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../lib/utils'
 import { TASK_TYPES, CARE_TYPES } from '../data/taskConstants'
+import { RECURRENCE_OPTIONS } from '../lib/taskScheduler'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 
@@ -16,6 +17,7 @@ export default function AddTaskModal({ open, onClose, onSave, pets = [], default
   const [time,    setTime]    = useState('')
   const [dosage,  setDosage]  = useState('')
   const [notes,   setNotes]   = useState('')
+  const [recurrence, setRecurrence] = useState('once')
 
   if (!open) return null
 
@@ -33,10 +35,11 @@ export default function AddTaskModal({ open, onClose, onSave, pets = [], default
       time,
       dosage,
       notes,
+      recurrence,
       is_done: false,
     })
     // reset
-    setType('medication'); setName(''); setCareKey('grooming'); setTime(''); setDosage(''); setNotes('')
+    setType('medication'); setName(''); setCareKey('grooming'); setTime(''); setDosage(''); setNotes(''); setRecurrence('once')
     onClose()
   }
 
@@ -162,6 +165,29 @@ export default function AddTaskModal({ open, onClose, onSave, pets = [], default
             />
           </div>
         )}
+
+        {/* Recurrence */}
+        <div className="mt-3">
+          <p className="text-[12px] font-semibold text-slate-500 mb-2">Repeat</p>
+          <div className="flex gap-1.5 overflow-x-auto scrollbar-thin">
+            {RECURRENCE_OPTIONS.map(r => {
+              const sel = recurrence === r.key
+              return (
+                <button
+                  key={r.key}
+                  onClick={() => setRecurrence(r.key)}
+                  className={cn(
+                    'flex items-center gap-1 px-3 py-2 rounded-xl border text-[12px] font-bold transition-all shrink-0',
+                    sel ? 'bg-brand-orange text-white border-brand-orange' : 'bg-white text-slate-700 border-slate-200'
+                  )}
+                >
+                  <span>{r.emoji}</span>
+                  {r.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
 
         {/* Notes */}
         <div className="mt-3">

@@ -9,10 +9,12 @@ import Tasks from './screens/Tasks'
 import Nearby from './screens/Nearby'
 import Profile from './screens/Profile'
 import Articles from './screens/Articles'
+import VetChat from './screens/VetChat'
 import Login from './screens/Login'
 import Register from './screens/Register'
 import ForgotPassword from './screens/ForgotPassword'
 import { DEFAULT_PROGRESS } from './lib/xp'
+import { seedTasksForPet, spawnNextInstance } from './lib/taskScheduler'
 
 const IS_DEV = !import.meta.env.PROD
 
@@ -28,6 +30,7 @@ const TABS = [
   ['nearby',         'Layanan'],
   ['profile',        'Profile'],
   ['articles',       'Articles'],
+  ['vet-chat',       'Vet Chat'],
 ]
 
 const PUBLIC_SCREENS = ['login', 'register', 'forgot-password']
@@ -80,8 +83,12 @@ export default function App() {
   const savePet = (data) => setPets(prev => prev.map(p => p.id === currentPetId ? { ...p, ...data } : p))
   const addPet  = (data) => {
     const id = Date.now().toString()
-    setPets(prev => [...prev, { id, ...data }])
+    const newPet = { id, ...data }
+    setPets(prev => [...prev, newPet])
     setCurrentPetId(id)
+    // Auto-seed default tasks for this species
+    const seeded = seedTasksForPet(newPet)
+    if (seeded.length) setTasks(prev => [...prev, ...seeded])
   }
   const switchPet = (id) => setCurrentPetId(id)
 
@@ -90,9 +97,21 @@ export default function App() {
     ...prev,
     { ...task, id: Date.now().toString() + Math.random() },
   ])
-  const toggleTask = (taskId) => setTasks(prev =>
-    prev.map(tk => tk.id === taskId ? { ...tk, is_done: !tk.is_done } : tk)
-  )
+  const toggleTask = (taskId) => setTasks(prev => {
+    const target = prev.find(tk => tk.id === taskId)
+    if (!target) return prev
+    const willBeDone = !target.is_done
+    const updated = prev.map(tk => tk.id === taskId ? { ...tk, is_done: willBeDone } : tk)
+    // If marking a recurring task as done, spawn the next instance (only once)
+    if (willBeDone && target.recurrence && target.recurrence !== 'once') {
+      const alreadyHasNext = prev.some(tk => tk.id === `${target.id}-next`)
+      if (!alreadyHasNext) {
+        const next = spawnNextInstance({ ...target, id: `${target.id}-next` })
+        if (next) return [...updated, next]
+      }
+    }
+    return updated
+  })
   const deleteTask = (taskId) => setTasks(prev => prev.filter(tk => tk.id !== taskId))
 
   const isNewPet    = currentScreen === 'onboarding-new'
@@ -136,6 +155,7 @@ export default function App() {
           {currentScreen === 'nearby'     && <Nearby     {...screenProps} />}
           {currentScreen === 'profile'    && <Profile    {...screenProps} />}
           {currentScreen === 'articles'   && <Articles   {...screenProps} />}
+          {currentScreen === 'vet-chat'   && <VetChat    {...screenProps} />}
         </div>
       </div>
     )
@@ -178,6 +198,7 @@ export default function App() {
         {currentScreen === 'nearby'     && <Nearby     {...screenProps} />}
         {currentScreen === 'profile'    && <Profile    {...screenProps} />}
         {currentScreen === 'articles'   && <Articles   {...screenProps} />}
+        {currentScreen === 'vet-chat'   && <VetChat    {...screenProps} />}
       </div>
     </div>
   )

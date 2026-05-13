@@ -56,6 +56,12 @@ export default function TaskCard({ task, onToggle, petPhoto, petName }) {
               <span className="text-[12px] text-slate-500">{task.dosage}</span>
             </>
           )}
+          {task.recurrence && task.recurrence !== 'once' && (
+            <>
+              <span className="text-slate-300">•</span>
+              <span className="text-[11px] text-brand-orange font-bold">↻ {task.recurrence}</span>
+            </>
+          )}
         </div>
         {task.is_overdue && !done && (
           <div className="flex items-center gap-1 mt-1">

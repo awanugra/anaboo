@@ -3,6 +3,8 @@ import BottomNav from '../components/BottomNav'
 import useLocalStorage from '../hooks/useLocalStorage'
 import { levelFromXP, xpToNextLevel } from '../data/taskConstants'
 import { cn } from '../lib/utils'
+import AchievementBadge from '../components/AchievementBadge'
+import { evaluateAchievements } from '../lib/achievements'
 
 const VERSION = '2.0.0'
 
@@ -61,6 +63,8 @@ export default function Profile({ navigate, user, progress, pets = [], tasks = [
   const level = levelFromXP(xp)
   const toNext = xpToNextLevel(xp)
   const tasksDone = tasks.filter(tk => tk.is_done).length
+  const achievements = evaluateAchievements({ pets, tasks, progress })
+  const unlockedCount = achievements.filter(a => a.unlocked).length
 
   const [notif3, setNotif3]       = useLocalStorage('anaboo_notif_3', true)
   const [notif1, setNotif1]       = useLocalStorage('anaboo_notif_1', true)
@@ -116,6 +120,21 @@ export default function Profile({ navigate, user, progress, pets = [], tasks = [
                 <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{s.label}</p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Achievements */}
+        <div className="px-5 mt-5">
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-[12px] font-extrabold text-slate-500 uppercase tracking-[0.5px]">{t('profile.achievements')}</p>
+            <span className="text-[12px] font-extrabold text-brand-orange">{unlockedCount}/{achievements.length}</span>
+          </div>
+          <div className="bg-white rounded-3xl py-4 px-2 shadow-card">
+            <div className="overflow-x-auto scrollbar-thin">
+              <div className="flex gap-3 px-2 w-max">
+                {achievements.map(a => <AchievementBadge key={a.id} achievement={a} />)}
+              </div>
+            </div>
           </div>
         </div>
 

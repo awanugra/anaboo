@@ -33,7 +33,8 @@ export default function Pets({ navigate, pets = [], tasks = [], switchPet }) {
       <div className="flex-1 overflow-y-auto scrollbar-thin px-4 pt-5 pb-4 flex flex-col gap-3">
         {pets.length === 0 ? (
           <EmptyState
-            emoji="🐾"
+            useMascot
+            variant="default"
             title="No pets yet"
             subtitle="Tap + to add your first companion"
             action={<Button onClick={() => navigate('onboarding-new')} className="w-auto px-6">Add pet</Button>}

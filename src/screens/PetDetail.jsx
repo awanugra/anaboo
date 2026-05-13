@@ -116,7 +116,8 @@ export default function PetDetail({ navigate, petData, tasks = [], pets = [], ad
         <div className="px-5 mt-4 flex flex-col gap-2">
           {petTasks.length === 0 ? (
             <EmptyState
-              emoji={TASK_TYPES[tab].emoji}
+              useMascot
+              variant="default"
               title={t('petDetail.noRecords')}
               subtitle={`Tap below to add a ${tabLabel.toLowerCase()}`}
             />

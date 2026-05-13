@@ -171,6 +171,7 @@ export default function Dashboard({ navigate, pets = [], tasks = [], progress, s
               { label: t('home.todayTasksAction'),emoji: '📋', bg: '#EDE7F6', color: '#7C4DFF', route: 'tasks' },
               { label: t('home.nearbyAction'),    emoji: '📍', bg: '#E0F7FA', color: '#26C6DA', route: 'nearby' },
               { label: t('home.tipsAction'),      emoji: '📚', bg: '#E8F5E9', color: '#4CAF50', route: 'articles' },
+              { label: 'Ask Vet AI',            emoji: '🩺', bg: '#FFEBEE', color: '#FF5252', route: 'vet-chat' },
             ].map((a, i) => (
               <button
                 key={i}
