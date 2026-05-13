@@ -52,26 +52,27 @@ export default function Onboarding({ navigate, petData, savePet, addPet, mode = 
     if (!file) return
     const data = await compressImage(file)
     setPhoto(data)
+    setIllustration(null) // clear old illustration since photo changed
+    autoGenerate(data)    // auto-trigger mascot generation
   }
 
-  const handleGenerate = async () => {
-    if (!photo) return
+  // Auto-generate mascot from photo. On any error, silently fall back to photo.
+  const autoGenerate = async (photoData) => {
+    if (!photoData) return
     setGenerating(true)
     try {
-      // Try API; fallback to using photo as-is if API not set up yet
       const res = await fetch('/api/illustrate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ photo, species, breed, furColor, eyeColor }),
+        body: JSON.stringify({ photo: photoData, species, breed, furColor, eyeColor }),
       })
       if (res.ok) {
         const { url } = await res.json()
-        setIllustration(url || photo)
-      } else {
-        setIllustration(photo) // graceful fallback
+        if (url) setIllustration(url)
       }
+      // Else: silently keep photo as the avatar
     } catch {
-      setIllustration(photo)
+      // network error → silently keep photo
     } finally {
       setGenerating(false)
     }
@@ -292,44 +293,47 @@ export default function Onboarding({ navigate, petData, savePet, addPet, mode = 
               </div>
             </div>
 
-            {/* Photo upload + illustration preview */}
+            {/* Photo upload + mascot preview (auto-generated) */}
             <div className="bg-slate-50 rounded-2xl p-4 flex flex-col items-center gap-3">
               <div className={cn(
-                'w-32 h-32 rounded-2xl flex items-center justify-center overflow-hidden',
+                'relative w-32 h-32 rounded-2xl flex items-center justify-center overflow-hidden',
                 speciesObj?.tint || 'bg-slate-100'
               )}>
-                {generating ? (
-                  <div className="flex flex-col items-center gap-2">
-                    <div className="w-6 h-6 border-2 border-brand-blue border-t-transparent rounded-full animate-spin" />
-                    <span className="text-[10px] font-bold text-slate-500">{t('onboarding.generating')}</span>
-                  </div>
-                ) : illustration ? (
+                {/* Always show photo if available; overlay loading or replace with illustration */}
+                {illustration ? (
                   <img src={illustration} alt="" className="w-full h-full object-cover" />
                 ) : photo ? (
-                  <img src={photo} alt="" className="w-full h-full object-cover" />
+                  <img src={photo} alt="" className={cn('w-full h-full object-cover', generating && 'opacity-60')} />
                 ) : (
                   <span className="text-[64px]">{speciesObj?.emoji ?? '🐾'}</span>
+                )}
+
+                {/* Loading overlay when generating */}
+                {generating && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-black/30 backdrop-blur-sm">
+                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span className="text-[10px] font-bold text-white">Generating mascot…</span>
+                  </div>
                 )}
               </div>
 
               <input ref={fileRef} type="file" accept="image/*" onChange={handlePhoto} className="hidden" />
-              <div className="flex gap-2 w-full">
-                <button
-                  onClick={() => fileRef.current?.click()}
-                  className="flex-1 py-2.5 rounded-xl bg-white border border-slate-200 text-[12px] font-extrabold text-slate-700 active:scale-95 transition-all"
-                >
-                  {photo ? t('onboarding.changePhoto') : t('onboarding.uploadPhoto')}
-                </button>
-                {photo && (
-                  <button
-                    onClick={handleGenerate}
-                    disabled={generating}
-                    className="flex-1 py-2.5 rounded-xl bg-brand-orange text-white text-[12px] font-extrabold active:scale-95 transition-all disabled:opacity-50"
-                  >
-                    {illustration ? t('onboarding.regenerate') : t('onboarding.generateIllustration')}
-                  </button>
-                )}
-              </div>
+              <button
+                onClick={() => fileRef.current?.click()}
+                disabled={generating}
+                className="w-full py-2.5 rounded-xl bg-white border border-slate-200 text-[12px] font-extrabold text-slate-700 active:scale-95 transition-all disabled:opacity-50"
+              >
+                {photo ? t('onboarding.changePhoto') : t('onboarding.uploadPhoto')}
+              </button>
+              <p className="text-[11px] font-semibold text-slate-500 text-center leading-snug">
+                {generating
+                  ? 'Anaboo is drawing your pet…'
+                  : illustration
+                  ? '✨ Mascot ready! Tap photo button to change'
+                  : photo
+                  ? 'We\'ll auto-create a mascot illustration when you upload'
+                  : 'Upload a photo to auto-create a mascot'}
+              </p>
             </div>
           </div>
         )}
@@ -338,8 +342,14 @@ export default function Onboarding({ navigate, petData, savePet, addPet, mode = 
       {/* Footer with dots + CTA */}
       <div className="px-6 pt-3 pb-6 flex flex-col gap-3 border-t border-slate-100">
         <StepDots total={STEPS} current={step} />
-        <Button onClick={handleNext} disabled={!canNext || submitting}>
-          {step < STEPS - 1 ? t('common.next') : (submitting ? t('onboarding.generating') : t('onboarding.finish'))}
+        <Button onClick={handleNext} disabled={!canNext || submitting || generating}>
+          {step < STEPS - 1
+            ? t('common.next')
+            : generating
+            ? 'Drawing mascot…'
+            : submitting
+            ? t('onboarding.generating')
+            : t('onboarding.finish')}
         </Button>
       </div>
     </div>
